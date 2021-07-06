@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.FootballForum.PL.Web", "Football Forum\EPAM.FootballForum.PL.Web.csproj", "{EB992F96-BAE7-4D0B-BD03-E9DF23F891F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PL", "PL", "{81553DE8-CA86-42D7-9E07-8068795A9F6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{B6BE334C-7A53-48DD-826C-1E92B90F7083}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{F25C1D91-0401-4F7A-8A14-611696303D4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DCAB4807-A3EF-4B9E-BCD5-4B894D9E4749}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.FootballForum.DAL.Interfaces", "EPAM.FootballForum.DAL.Interfaces.\EPAM.FootballForum.DAL.Interfaces.csproj", "{B7CFDC9D-760D-4C4C-B110-21E84AE4F53F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.FootballForum.DAL.Logic", "EPAM.FootballForum.DAL.Logic\EPAM.FootballForum.DAL.Logic.csproj", "{69DFB2A0-B6D3-4A97-ABF3-5703C36FF143}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.FootballForum.BLL.Interfaces", "EPAM.FootballForum.BLL.Interfaces\EPAM.FootballForum.BLL.Interfaces.csproj", "{26615986-947A-4CE0-BE5E-F5950B7C91F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.FootballForum.BLL.Logic", "EPAM.FootballForum.BLL.Logic\EPAM.FootballForum.BLL.Logic.csproj", "{A2FB8D55-6E22-4C51-B832-9FF0ACF3349E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.FootballForum.Common.Dependencies", "EPAM.FootballForum.Common.Dependencies\EPAM.FootballForum.Common.Dependencies.csproj", "{71C34C72-03B7-4359-8C75-25FBE8042440}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.FootballForum.Common.Entities", "EPAM.FootballForum.Common.Entities\EPAM.FootballForum.Common.Entities.csproj", "{56520131-7A19-4E86-A7F5-5F058BFCFC4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB992F96-BAE7-4D0B-BD03-E9DF23F891F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB992F96-BAE7-4D0B-BD03-E9DF23F891F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB992F96-BAE7-4D0B-BD03-E9DF23F891F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB992F96-BAE7-4D0B-BD03-E9DF23F891F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7CFDC9D-760D-4C4C-B110-21E84AE4F53F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7CFDC9D-760D-4C4C-B110-21E84AE4F53F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7CFDC9D-760D-4C4C-B110-21E84AE4F53F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7CFDC9D-760D-4C4C-B110-21E84AE4F53F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69DFB2A0-B6D3-4A97-ABF3-5703C36FF143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69DFB2A0-B6D3-4A97-ABF3-5703C36FF143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69DFB2A0-B6D3-4A97-ABF3-5703C36FF143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69DFB2A0-B6D3-4A97-ABF3-5703C36FF143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26615986-947A-4CE0-BE5E-F5950B7C91F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26615986-947A-4CE0-BE5E-F5950B7C91F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26615986-947A-4CE0-BE5E-F5950B7C91F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26615986-947A-4CE0-BE5E-F5950B7C91F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2FB8D55-6E22-4C51-B832-9FF0ACF3349E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2FB8D55-6E22-4C51-B832-9FF0ACF3349E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2FB8D55-6E22-4C51-B832-9FF0ACF3349E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2FB8D55-6E22-4C51-B832-9FF0ACF3349E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C34C72-03B7-4359-8C75-25FBE8042440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C34C72-03B7-4359-8C75-25FBE8042440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C34C72-03B7-4359-8C75-25FBE8042440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C34C72-03B7-4359-8C75-25FBE8042440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56520131-7A19-4E86-A7F5-5F058BFCFC4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56520131-7A19-4E86-A7F5-5F058BFCFC4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56520131-7A19-4E86-A7F5-5F058BFCFC4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56520131-7A19-4E86-A7F5-5F058BFCFC4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB992F96-BAE7-4D0B-BD03-E9DF23F891F5} = {81553DE8-CA86-42D7-9E07-8068795A9F6B}
+		{B7CFDC9D-760D-4C4C-B110-21E84AE4F53F} = {B6BE334C-7A53-48DD-826C-1E92B90F7083}
+		{69DFB2A0-B6D3-4A97-ABF3-5703C36FF143} = {B6BE334C-7A53-48DD-826C-1E92B90F7083}
+		{26615986-947A-4CE0-BE5E-F5950B7C91F7} = {F25C1D91-0401-4F7A-8A14-611696303D4B}
+		{A2FB8D55-6E22-4C51-B832-9FF0ACF3349E} = {F25C1D91-0401-4F7A-8A14-611696303D4B}
+		{71C34C72-03B7-4359-8C75-25FBE8042440} = {DCAB4807-A3EF-4B9E-BCD5-4B894D9E4749}
+		{56520131-7A19-4E86-A7F5-5F058BFCFC4F} = {DCAB4807-A3EF-4B9E-BCD5-4B894D9E4749}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0C6D2E0-FA8A-40A2-9CE3-1217D5285715}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,39 @@
+﻿.log-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 45%;
+}
+
+.log-in__form {
+    height: 30%;
+}
+
+ .log-form > label {
+     margin-left: 20%;
+ }
+
+.log-form > a {
+    margin-left: 20%;
+}
+
+.log-form__input {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.submit-btn {
+    width: 20%;
+}
+
+.error-border {
+    border: 2px solid red;
+}
+
+.error-div {
+    margin-left: 20%;
+    width: 40%;
+    margin-top: 20px;
+}
+

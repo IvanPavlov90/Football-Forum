@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Layouts/_BasicLayout.cshtml";
+    Page.Title = "Страница входа";
+}
+
+<section class="main-content flex-column flex-row" id="content">
+    <div class="main-content__center flex-column flex-start">
+        <form class="log-form log-in__form" method="post" id="logForm">
+            <label class="log-form__input" for="name">Введитя логин:</label>
+            <input type="text" class="log-form__input" name="name" placeholder="Введите имя:" id="login" required>
+            <label for="password">Введите пароль:</label>
+            <input type="password" class="log-form__input" name="password" id="password" required>
+            <input type="submit" class="log-form__input submit-btn" name="" value="Войти!">
+        </form>
+        <a class="log-form__input submit-btn" href="Register.cshtml">Хочу зарегистрироваться</a>
+    </div>
+</section>

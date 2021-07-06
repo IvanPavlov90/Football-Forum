@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Styles/style.css" rel="stylesheet" />
+    <link href="~/Styles/registry.css" rel="stylesheet" />
+    <title>@Page.Title</title>
+</head>
+<body>
+    @RenderPage("~/Partial Pages/_Header.cshtml")
+    @RenderBody()
+    @RenderPage("~/Partial Pages/_Footer.cshtml")
+</body>
+</html>
