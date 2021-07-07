@@ -23,9 +23,6 @@ namespace EPAM.FootballForum.BLL.Logic
 
         public User GetUser(string login) => _userDal.GetUser(login);
 
-        public User GetUser(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+        public User GetUser(int id) => _userDal.GetUser(id);
     }
 }

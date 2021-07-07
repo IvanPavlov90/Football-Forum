@@ -129,7 +129,28 @@ namespace EPAM.FootballForum.DAL.Logic
 
         public User GetUser(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Users_GetUser = "GetUserById";
+                SqlCommand command = new SqlCommand(Users_GetUser, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@id", id);
+                _connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    return new User(
+                        id: (int)reader["id"],
+                        login: (string)reader["Login"],
+                        email: (string)reader["Email"],
+                        age: (int)reader["Age"],
+                        createdAt: (string)reader["CreatedAt"]
+                    );
+                }
+                throw new InvalidOperationException("Cannot find user with such id = " + id);
+            }
         }
     }
 }

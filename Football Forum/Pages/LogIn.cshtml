@@ -25,23 +25,38 @@
     }
 }
 
-<section class="main-content flex-column flex-row" id="content">
-    <div class="main-content__center flex-column flex-start">
-        <form class="log-form log-in__form" method="post" id="logForm">
-            <label class="log-form__input" for="name">Введите логин:</label>
-            <input type="text" class="log-form__input" name="login" placeholder="Введите логин:" id="login" value="@login" required>
-            <label for="password">Введите пароль:</label>
-            <input type="password" class="log-form__input" name="password" id="password" required>
-            <input type="submit" class="log-form__input submit-btn" name="" value="Войти!">
-        </form>
-        <a class="log-form__input submit-btn" href="Register.cshtml">Хочу зарегистрироваться</a>
-        <div id="errorBox">
-            @if (IsPost && userFoundState.LoginIsFound)
-            {
-                <div class="error-div">
-                    Пользователь с таким логином/паролем не найден.
-                </div>
-            }
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="main-content flex-column flex-row" id="content">
+        <div class="main-content__center flex-column flex-start">
+            <form class="log-form log-in__form" method="post" id="logForm">
+                <label class="log-form__input" for="name">Введите логин:</label>
+                <input type="text" class="log-form__input" name="login" placeholder="Введите логин:" id="login" value="@login" required>
+                <label for="password">Введите пароль:</label>
+                <input type="password" class="log-form__input" name="password" id="password" required>
+                <input type="submit" class="log-form__input submit-btn" name="" value="Войти!">
+            </form>
+            <a class="log-form__input submit-btn" href="Register.cshtml">Хочу зарегистрироваться</a>
+            <div id="errorBox">
+                @if (IsPost && userFoundState.LoginIsFound)
+                {
+                    <div class="error-div">
+                        Пользователь с таким логином/паролем не найден.
+                    </div>
+                }
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+}
+else
+{
+    <section class="main-content flex-column flex-row" id="content">
+        <div class="main-content__center flex-column flex-start">
+            <div id="errorBox">
+                <div class="error-div">
+                    Для входа на эту страницу необходимо разлогиниться.
+                </div>
+            </div>
+        </div>
+    </section>
+}
