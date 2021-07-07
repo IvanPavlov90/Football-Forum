@@ -110,7 +110,7 @@
   <ItemGroup>
     <Compile Include="Models\PasswordHasher.cs" />
     <Compile Include="Models\RoleManager.cs" />
-    <Compile Include="Models\SearchUserState.cs" />
+    <Compile Include="Models\SearchUserAuthData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

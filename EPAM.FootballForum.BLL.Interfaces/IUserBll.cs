@@ -4,7 +4,7 @@ namespace EPAM.FootballForum.BLL.Interfaces
 {
     public interface IUserBll
     {
-        bool CheckUserExistence(string login);
+        string[] CheckUserAuthData(string login, string email);
 
         bool AddUser (User user);
 

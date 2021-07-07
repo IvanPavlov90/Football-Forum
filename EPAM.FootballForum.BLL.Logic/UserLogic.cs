@@ -20,6 +20,6 @@ namespace EPAM.FootballForum.BLL.Logic
             throw new System.NotImplementedException();
         }
 
-        public bool CheckUserExistence(string login) => _userDal.CheckUserExistence(login);
+        public string[] CheckUserAuthData(string login, string email) => _userDal.CheckUserAuthData(login, email);
     }
 }

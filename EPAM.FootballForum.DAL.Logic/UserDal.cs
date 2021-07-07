@@ -36,24 +36,29 @@ namespace EPAM.FootballForum.DAL.Logic
             throw new NotImplementedException();
         }
 
-        public bool CheckUserExistence(string login)
+        public string[] CheckUserAuthData(string login, string email)
         {
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
-                var Users_SearchByLogin = "SearchUserByLogin";
+                string[] result = new string[2];
+                var Users_SearchByLogin = "SearchAuthData";
                 SqlCommand command = new SqlCommand(Users_SearchByLogin, _connection)
                 {
                     CommandType = System.Data.CommandType.StoredProcedure
                 };
                 command.Parameters.AddWithValue("@Login", login);
+                command.Parameters.AddWithValue("@Email", email);
                 _connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     if (login == (string)reader[0])
-                        return true;
+                        result[0] = login;
+                    if (email == (string)reader[1])
+                        result[1] = email;
+                    return result;
                 }
-                return false;
+                return result; ;
             }
         }
     }

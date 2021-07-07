@@ -6,17 +6,22 @@
     Layout = "~/Layouts/_BasicLayout.cshtml";
     Page.Title = "Страница регистрации";
     PasswordHasher hasher = new PasswordHasher();
-    SearchUserState userFoundState = new SearchUserState();
+    SearchUserAuthData userFoundState = new SearchUserAuthData();
     string login = Request["login"];
     string email = Request["e-mail"];
     string age = Request["age"];
 
     if (IsPost)
     {
-        userFoundState.FoundStatus(false);
-        if (DependencyResolver.Instance.UserBLL.CheckUserExistence(login))
+        userFoundState.LoginStatus(false);
+        userFoundState.EmailStatus(false);
+        if (login == DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email)[0])
         {
-            userFoundState.FoundStatus(true);
+            userFoundState.LoginStatus(true);
+        }
+        else if (email == DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email)[1])
+        {
+            userFoundState.EmailStatus(true);
         }
         else
         {
@@ -46,10 +51,16 @@
             <input type="submit" class="log-form__input submit-btn" name="" value="Зарегестрироваться!">
         </form>
         <div id="errorBox">
-            @if (IsPost && userFoundState.UserIsFound)
+            @if (IsPost && userFoundState.LoginIsFound)
             {
                 <div class="error-div">
                     Пользователь с таким логином уже существует!
+                </div>
+            }
+            @if (IsPost && userFoundState.EmailIsFound)
+            {
+                <div class="error-div">
+                    Пользователь с таким адресом электронной почты уже существует!
                 </div>
             }
         </div>
