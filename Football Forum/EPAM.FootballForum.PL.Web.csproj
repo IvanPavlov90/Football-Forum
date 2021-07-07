@@ -111,6 +111,7 @@
     <Compile Include="Models\PasswordHasher.cs" />
     <Compile Include="Models\RoleManager.cs" />
     <Compile Include="Models\SearchUserAuthData.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

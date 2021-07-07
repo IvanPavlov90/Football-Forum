@@ -3,6 +3,7 @@
 @using EPAM.FootballForum.Common.Entities;
 @{
     Layout = "~/Layouts/_BasicLayout.cshtml";
+    FormsAuthentication.SignOut();
     Page.Title = "Страница входа";
     PasswordHasher hasher = new PasswordHasher();
     SearchUserAuthData userFoundState = new SearchUserAuthData();

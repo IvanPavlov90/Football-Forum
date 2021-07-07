@@ -1,11 +1,19 @@
 ﻿@using EPAM.FootballForum.Common.Entities;
 @using EPAM.FootballForum.Common.Dependencies;
+@using EPAM.FootballForum.PL.Web.Models;
 @{
-    string ID = Request.QueryString["userID"];
-    int userID;
-    Int32.TryParse(ID, out userID);
-    User user = DependencyResolver.Instance.UserBLL.GetUser(userID);
+    UserModel userModel = new UserModel();
+    if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+    {
+        string ID = Request.QueryString["userID"];
+        int userID;
+        Int32.TryParse(ID, out userID);
+        User user = DependencyResolver.Instance.UserBLL.GetUser(userID);
+        userModel.Login = user.Login;
+        userModel.ID = user.ID;
+    }
 }
+
 <header class="page-header flex-column" id="header">
     <div>
         <span class="logo">Форум футбольных болельщиков</span>
@@ -13,12 +21,12 @@
     @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
     {
         <div>
-            <a class="link">Вы вошли как: @user.Login</a>
-            <a class="link" href="~/Index.cshtml?userID= + @user.ID.ToString()">Форум</a>
+            <a class="link">Вы вошли как: @userModel.Login</a>
+            <a class="link" href="~/Index.cshtml?userID= + @userModel.ID.ToString()">Форум</a>
             <a class="link">Пользователи</a>
             <a class="link">Правила</a>
             <a class="link">Личный кабинет</a>
-            <a class="link">Выйти</a>
+            <a class="link" href="~/Pages/LogIn.cshtml?userID= + @userModel.ID.ToString()">Выйти</a>
         </div>
     }
     else
