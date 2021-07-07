@@ -21,10 +21,7 @@ namespace EPAM.FootballForum.BLL.Logic
 
         public bool UserAuthentication(string login, string hpassword) => _userDal.UserAuthentication(login, hpassword);
 
-        public User GetUser(string login)
-        {
-            throw new System.NotImplementedException();
-        }
+        public User GetUser(string login) => _userDal.GetUser(login);
 
         public User GetUser(int id)
         {

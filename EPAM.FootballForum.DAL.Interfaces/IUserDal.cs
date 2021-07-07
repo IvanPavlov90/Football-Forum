@@ -11,5 +11,9 @@ namespace EPAM.FootballForum.DAL.Interfaces
         string[] GetRolesForUser(string login);
 
         bool UserAuthentication(string login, string hpassword);
+
+        User GetUser(string login);
+
+        User GetUser(int id);
     }
 }

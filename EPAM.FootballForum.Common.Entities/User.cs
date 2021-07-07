@@ -4,6 +4,15 @@ namespace EPAM.FootballForum.Common.Entities
 {
     public class User
     {
+        public User(int id, string login, string email, int age, string createdAt)
+        {
+            ID = id;
+            Login = login;
+            Age = age;
+            Email = email;
+            CreatedAt = createdAt;
+        }
+
         public User(string login, int age, string email, string hpassword, string createdAt, string userRole)
         {
             Login = login;

@@ -1,5 +1,6 @@
 ﻿@using EPAM.FootballForum.Common.Dependencies;
 @using EPAM.FootballForum.PL.Web.Models;
+@using EPAM.FootballForum.Common.Entities;
 @{
     Layout = "~/Layouts/_BasicLayout.cshtml";
     Page.Title = "Страница входа";
@@ -13,8 +14,9 @@
         string password = Request["password"];
         if (DependencyResolver.Instance.UserBLL.UserAuthentication(login, hasher.GetHash(password)))
         {
+            User user = DependencyResolver.Instance.UserBLL.GetUser(login);
             FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
-            Response.Redirect("~");
+            Response.Redirect("~/Index.cshtml?userID=" + user.ID.ToString());
         }
         else
         {
