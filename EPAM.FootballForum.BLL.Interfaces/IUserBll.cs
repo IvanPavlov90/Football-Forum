@@ -8,6 +8,12 @@ namespace EPAM.FootballForum.BLL.Interfaces
 
         bool AddUser (User user);
 
-        string GetRolesForUser(string login);
+        string[] GetRolesForUser(string login);
+
+        bool UserAuthentication(string login, string hpassword);
+
+        User GetUser(string login);
+
+        User GetUser(int id);
     }
 }

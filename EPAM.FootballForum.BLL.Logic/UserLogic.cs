@@ -15,11 +15,20 @@ namespace EPAM.FootballForum.BLL.Logic
 
         public bool AddUser(User user) => _userDal.AddUser(user);
 
-        public string GetRolesForUser(string login)
+        public string[] GetRolesForUser(string login) => _userDal.GetRolesForUser(login);
+
+        public string[] CheckUserAuthData(string login, string email) => _userDal.CheckUserAuthData(login, email);
+
+        public bool UserAuthentication(string login, string hpassword) => _userDal.UserAuthentication(login, hpassword);
+
+        public User GetUser(string login)
         {
             throw new System.NotImplementedException();
         }
 
-        public string[] CheckUserAuthData(string login, string email) => _userDal.CheckUserAuthData(login, email);
+        public User GetUser(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

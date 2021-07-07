@@ -8,6 +8,8 @@ namespace EPAM.FootballForum.DAL.Interfaces
 
         bool AddUser(User user);
 
-        string GetRolesForUser(string login);
+        string[] GetRolesForUser(string login);
+
+        bool UserAuthentication(string login, string hpassword);
     }
 }

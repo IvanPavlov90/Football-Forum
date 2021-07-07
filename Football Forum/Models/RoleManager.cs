@@ -1,4 +1,4 @@
-﻿
+﻿using EPAM.FootballForum.Common.Dependencies;
 using System.Web.Security;
 
 namespace EPAM.FootballForum.PL.Web.Models
@@ -34,7 +34,7 @@ namespace EPAM.FootballForum.PL.Web.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            throw new System.NotImplementedException();
+            return DependencyResolver.Instance.UserBLL.GetRolesForUser(username);
         }
 
         public override string[] GetUsersInRole(string roleName)
