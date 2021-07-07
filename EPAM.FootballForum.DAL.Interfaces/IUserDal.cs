@@ -4,7 +4,7 @@ namespace EPAM.FootballForum.DAL.Interfaces
 {
     public interface IUserDal
     {
-        bool SearchUser(string login, string hpassword);
+        bool CheckUserExistence(string login);
 
         bool AddUser(User user);
 

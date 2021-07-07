@@ -14,79 +14,86 @@ namespace EPAM.FootballForum.Common.Entities
             Role = userRole;
         }
 
+        private int _id;
         public int ID { 
-            get => ID;
+            get => _id;
             private set
             {
-                if (ID <= 0)
+                if (value <= 0)
                     throw new ArgumentException("ID can't be less then 0.");
                 else
-                    ID = value;
+                    _id = value;
             } 
         }
 
+        private string _login;
         public string Login {
-            get => Login;
-            private set 
+            get => _login;
+            set 
             {
-                if (Login.Trim().Length < 2 || Login == null)
+                if (value.Trim().Length < 2 || value == null)
                     throw new ArgumentException($"You can't put null or string with length less then 2 into login.");
                 else
-                    Login = value;
+                    _login = value;
             }
         }
 
+        private int _age;
         public int Age {
-            get => Age;
+            get => _age;
             private set {
-                if (Age < 1 || Age > 99)
+                if (value < 1 || value > 99)
                     throw new ArgumentException("Age can't be less then 1 or more then 99.");
                 else
-                    Age = value;
+                    _age = value;
             } 
         }
 
+        private string _email;
         public string Email {
-            get => Email;
+            get => _email;
             private set
             {
-                if (Email == null || Email == String.Empty)
+                if (value == null || value == String.Empty)
                     throw new ArgumentException($"You can't put null or empty string into email.");
                 else
-                    Email = value;
+                    _email = value;
             }
         }
 
+        private string _hPassword;
         public string HPassword {
-            get => HPassword;
+            get => _hPassword;
             private set
             {
-                if (HPassword == null || HPassword == String.Empty)
+                if (value == null || value == String.Empty)
                     throw new ArgumentException($"You can't put null into HPassword.");
                 else
-                    HPassword = value;
+                    _hPassword = value;
             } 
         }
 
+        private string _createdAt;
         public string CreatedAt {
-            get => CreatedAt;
+            get => _createdAt;
             private set
             {
-                if (CreatedAt == null || CreatedAt == String.Empty)
+                if (value == null || value == String.Empty)
                     throw new ArgumentException($"You can't put null or empty string to creation time.");
                 else
-                    CreatedAt = value;
+                    _createdAt = value;
             }
         }
 
+        private string _role;
         public string Role {
-            get => Role;
+            get => _role;
             private set
             {
-                if (Role == null || Role == String.Empty)
+                if (value == null || value == String.Empty)
                     throw new ArgumentException($"You can't put null into Role.");
                 else
-                    Role = value;
+                    _role = value;
             }
         }
     }

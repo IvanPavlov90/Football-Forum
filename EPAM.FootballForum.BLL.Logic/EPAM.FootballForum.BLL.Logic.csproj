@@ -42,6 +42,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserLogic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EPAM.FootballForum.BLL.Interfaces\EPAM.FootballForum.BLL.Interfaces.csproj">
+      <Project>{26615986-947A-4CE0-BE5E-F5950B7C91F7}</Project>
+      <Name>EPAM.FootballForum.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EPAM.FootballForum.Common.Entities\EPAM.FootballForum.Common.Entities.csproj">
+      <Project>{56520131-7A19-4E86-A7F5-5F058BFCFC4F}</Project>
+      <Name>EPAM.FootballForum.Common.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EPAM.FootballForum.DAL.Interfaces.\EPAM.FootballForum.DAL.Interfaces.csproj">
+      <Project>{B7CFDC9D-760D-4C4C-B110-21E84AE4F53F}</Project>
+      <Name>EPAM.FootballForum.DAL.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

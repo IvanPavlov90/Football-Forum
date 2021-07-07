@@ -14,7 +14,20 @@ namespace EPAM.FootballForum.DAL.Logic
         {
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
-
+                var Users_Add = "AddUser";
+                SqlCommand command = new SqlCommand(Users_Add, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Login", user.Login);
+                command.Parameters.AddWithValue("@Email", user.Email);
+                command.Parameters.AddWithValue("@Age", user.Age);
+                command.Parameters.AddWithValue("@Password", user.HPassword);
+                command.Parameters.AddWithValue("@CreatedAt", user.CreatedAt);
+                command.Parameters.AddWithValue("@Role", user.Role);
+                _connection.Open();
+                var result = command.ExecuteNonQuery();
+                return result > 0;
             }
         }
 
@@ -23,9 +36,25 @@ namespace EPAM.FootballForum.DAL.Logic
             throw new NotImplementedException();
         }
 
-        public bool SearchUser(string login, string hpassword)
+        public bool CheckUserExistence(string login)
         {
-            throw new NotImplementedException();
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Users_SearchByLogin = "SearchUserByLogin";
+                SqlCommand command = new SqlCommand(Users_SearchByLogin, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Login", login);
+                _connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (login == (string)reader[0])
+                        return true;
+                }
+                return false;
+            }
         }
     }
 }

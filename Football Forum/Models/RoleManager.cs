@@ -1,7 +1,7 @@
 ﻿
 using System.Web.Security;
 
-namespace Football_Forum.Models
+namespace EPAM.FootballForum.PL.Web.Models
 {
     public class RoleManager : RoleProvider
     {

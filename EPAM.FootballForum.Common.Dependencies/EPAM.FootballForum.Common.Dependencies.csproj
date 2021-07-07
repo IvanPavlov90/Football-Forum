@@ -41,7 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EPAM.FootballForum.BLL.Interfaces\EPAM.FootballForum.BLL.Interfaces.csproj">
+      <Project>{26615986-947A-4CE0-BE5E-F5950B7C91F7}</Project>
+      <Name>EPAM.FootballForum.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EPAM.FootballForum.BLL.Logic\EPAM.FootballForum.BLL.Logic.csproj">
+      <Project>{A2FB8D55-6E22-4C51-B832-9FF0ACF3349E}</Project>
+      <Name>EPAM.FootballForum.BLL.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EPAM.FootballForum.DAL.Interfaces.\EPAM.FootballForum.DAL.Interfaces.csproj">
+      <Project>{B7CFDC9D-760D-4C4C-B110-21E84AE4F53F}</Project>
+      <Name>EPAM.FootballForum.DAL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EPAM.FootballForum.DAL.Logic\EPAM.FootballForum.DAL.Logic.csproj">
+      <Project>{69DFB2A0-B6D3-4A97-ABF3-5703C36FF143}</Project>
+      <Name>EPAM.FootballForum.DAL.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
