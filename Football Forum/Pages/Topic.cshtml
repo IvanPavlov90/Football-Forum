@@ -1,0 +1,66 @@
+﻿@using EPAM.FootballForum.Common.Entities;
+@using EPAM.FootballForum.Common.Dependencies;
+@{
+    Layout = "~/Layouts/_BasicLayout.cshtml";
+    var id = Request.QueryString["id"];
+    int topicID;
+    Int32.TryParse(id, out topicID);
+    Topic topic = DependencyResolver.Instance.TopicBLL.GetTopicById(topicID);
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="main-content flex-column flex-row" id="content">
+        <div class="main-content__center flex-column flex-start">
+            <div id="errorBox">
+                <div class="error-div">
+                    Для просмотра этой страницы необходимо зарегистрироваться.
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section class="main-content flex-column flex-row" id="content">
+        <div class="main-content__center flex-column flex-start">
+            <div class="message flex-column flex-row">
+                <div class="message-block message-name">
+                    <p>@topic.Text</p>
+                </div>
+                <div class="message-block info">
+                    <p>Автором данной темы является @topic.Author</p>
+                    <p>Тема создана @topic.CreatedAt</p>
+                </div>
+            </div>
+            <div class="message flex-column flex-row">
+                <div class="message-block message-name">
+                    <p>
+                        Я смысл этой жизни вижу в том,
+                        Чтоб не жалея ни души, ни тела,
+                        Идти вперёд, любить и делать дело,
+                        Себя не оставляя на потом.
+                    </p>
+                    <button class="edit-btn" id="edit_message_btn">Редактировать</button>
+                </div>
+                <div class="message-block info">
+                    <p>informalpast</p>
+                    <p>6 июля 2021 года 19:11:43</p>
+                </div>
+            </div>
+            <button class="add-message-btn" id="add_message_btn">Добавить сообщение</button>
+            <form class="add-topic-form flex-column  invisible" method="post" id="add_message_form">
+                <textarea class="add-topic-form__textarea" rows="5"></textarea>
+                <input type="submit" value="Отправить" class="add-topic-form add-topic-form__btn">
+            </form>
+        </div>
+    </section>
+}
+
+<script type="text/javascript">
+    let addMessageBtn = document.getElementById('add_message_btn');
+    addMessageBtn.addEventListener("click", () => {
+        let addTopicForm = document.getElementById('add_message_form');
+        addTopicForm.classList.toggle('invisible');
+    });
+</script>

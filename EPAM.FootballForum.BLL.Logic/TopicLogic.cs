@@ -17,5 +17,7 @@ namespace EPAM.FootballForum.BLL.Logic
         public bool AddTopic(Topic newTopic) => _topicDal.AddTopic(newTopic);
 
         public IEnumerable<Topic> GetAllTopics() => _topicDal.GetAllTopics();
+
+        public Topic GetTopicById(int id) => _topicDal.GetTopicById(id);
     }
 }

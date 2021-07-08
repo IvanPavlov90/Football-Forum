@@ -8,5 +8,7 @@ namespace EPAM.FootballForum.BLL.Interfaces
         bool AddTopic(Topic newTopic);
 
         IEnumerable<Topic> GetAllTopics();
+
+        Topic GetTopicById(int id);
     }
 }

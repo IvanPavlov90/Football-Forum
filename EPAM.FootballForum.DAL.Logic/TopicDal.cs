@@ -52,5 +52,30 @@ namespace EPAM.FootballForum.DAL.Logic
                 }
             }
         }
+
+        public Topic GetTopicById(int id)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Topics_GetTopicByID = "GetTopicById";
+                SqlCommand command = new SqlCommand(Topics_GetTopicByID, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                _connection.Open();
+                command.Parameters.AddWithValue("@id", id);
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    return new Topic(
+                        creatorid: (int)reader["Creator_id"],
+                        author: (string)reader["Login"],
+                        createdAt: (DateTime)reader["Created_At"],
+                        text: (string)reader["Text"]
+                    );
+                }
+                throw new InvalidOperationException("Cannot find topic with such id = " + id);
+            }
+        }
     }
 }

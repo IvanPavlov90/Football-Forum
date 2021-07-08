@@ -77,7 +77,7 @@
     let topicNames = document.getElementsByClassName('topic-name');
     for (var i = 0; i < topicNames.length; i++) {
         topicNames[i].addEventListener("click", (event) => {
-            console.log(event.target.id);
+            document.location.href = "Pages/Topic.cshtml?id=" + event.target.id;
         });
     };
 </script>
