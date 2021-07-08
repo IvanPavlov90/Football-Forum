@@ -5,7 +5,14 @@
     var id = Request.QueryString["id"];
     int topicID;
     Int32.TryParse(id, out topicID);
+    string text = Request["text"];
     Topic topic = DependencyResolver.Instance.TopicBLL.GetTopicById(topicID);
+    User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
+    if (IsPost)
+    {
+        Message newMessage = new Message(topicID, user.ID, text, DateTime.Now, DateTime.Now);
+        DependencyResolver.Instance.MessageBLL.AddMessage(newMessage);
+    }
 }
 
 @if (!User.Identity.IsAuthenticated)
@@ -50,7 +57,7 @@ else
             </div>
             <button class="add-message-btn" id="add_message_btn">Добавить сообщение</button>
             <form class="add-topic-form flex-column  invisible" method="post" id="add_message_form">
-                <textarea class="add-topic-form__textarea" rows="5"></textarea>
+                <textarea class="add-topic-form__textarea" name ="text" rows="5"></textarea>
                 <input type="submit" value="Отправить" class="add-topic-form add-topic-form__btn">
             </form>
         </div>

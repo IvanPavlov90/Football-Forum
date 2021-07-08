@@ -27,5 +27,9 @@ namespace EPAM.FootballForum.Common.Dependencies
         public ITopicDal TopicDAL => new TopicDal();
 
         public ITopicBLL TopicBLL => new TopicLogic(TopicDAL);
+
+        public IMsgDal MessageDAL => new MessageDal();
+
+        public IMsgBll MessageBLL => new MessageBll(MessageDAL);
     }
 }
