@@ -23,5 +23,9 @@ namespace EPAM.FootballForum.Common.Dependencies
         public IUserDal UserDAL => new UserDal();
 
         public IUserBll UserBLL => new UserLogic(UserDAL);
+
+        public ITopicDal TopicDAL => new TopicDal();
+
+        public ITopicBLL TopicBLL => new TopicLogic(TopicDAL);
     }
 }

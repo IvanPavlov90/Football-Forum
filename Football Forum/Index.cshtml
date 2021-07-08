@@ -1,6 +1,15 @@
-﻿@{ 
+﻿@using EPAM.FootballForum.Common.Entities;
+@using EPAM.FootballForum.Common.Dependencies;
+@{
     Layout = "~/Layouts/_BasicLayout.cshtml";
     Page.Title = "Форум. Основная страница.";
+    string text = Request["text"];
+    if (IsPost)
+    {
+        User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
+        Topic newTopic = new Topic(user.ID, text, DateTime.Now, DateTime.Now);
+        DependencyResolver.Instance.TopicBLL.AddTopic(newTopic);
+    }
 }
 
 <section class="main-content flex-column flex-row" id="content">
@@ -45,7 +54,7 @@
         {
             <form class="add-topic-form flex-column invisible" method="post" id="add_topic_form">
                 <p>Введите название темы:</p>
-                <textarea class="add-topic-form__textarea" rows="5">
+                <textarea class="add-topic-form__textarea" rows="5" name="text">
 
                 </textarea>
                 <input type="submit" value="Отправить" class="add-topic-form add-topic-form__btn">
