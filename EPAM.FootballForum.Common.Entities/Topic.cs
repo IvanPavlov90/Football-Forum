@@ -8,13 +8,13 @@ namespace EPAM.FootballForum.Common.Entities
 {
     public class Topic
     {
-        public Topic(int id, int creatorid, string text, DateTime createdAt, DateTime updatedAt)
+        public Topic(int id, int creatorid, string text, DateTime updatedAt, string author)
         {
             ID = id;
             CreatorID = creatorid;
             Text = text;
-            CreatedAt = createdAt;
             UpdatedAt = updatedAt;
+            Author = author;
         }
 
         public Topic(int creatorid, string text, DateTime createdAt, DateTime updatedAt)
@@ -57,8 +57,8 @@ namespace EPAM.FootballForum.Common.Entities
             get => _text;
             set
             {
-                if (value == null)
-                    throw new ArgumentException($"You can't put null or string with length less then 2 into login.");
+                if (value == null || value.Length >= 500)
+                    throw new ArgumentException($"You can't put null or string with length more then 500 into text.");
                 else
                     _text = value;
             }
@@ -87,6 +87,19 @@ namespace EPAM.FootballForum.Common.Entities
                     throw new ArgumentException("CreatedAt field can't be more then tonight's date.");
                 else
                     _updatedAt = value;
+            }
+        }
+
+        private string _author;
+        public string Author
+        {
+            get => _author;
+            set
+            {
+                if (value == null)
+                    throw new ArgumentException($"You can't put null or string with length less then 2 into login.");
+                else
+                    _author = value;
             }
         }
     }

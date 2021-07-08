@@ -3,6 +3,7 @@
 @{
     Layout = "~/Layouts/_BasicLayout.cshtml";
     Page.Title = "Форум. Основная страница.";
+    IEnumerable<Topic> topics = DependencyResolver.Instance.TopicBLL.GetAllTopics();
     string text = Request["text"];
     if (IsPost)
     {
@@ -36,20 +37,23 @@
                 <p>Дата обновления</p>
             </div>
         </div>
-        <div class="test flex-column flex-row">
-            <div class="topic-block topic-text">
-                <p class="topic-name" id="1">Игра сборной Италии на Евро-2020</p>
+        @foreach (var item in topics)
+        {
+            <div class="test flex-column flex-row">
+                <div class="topic-block topic-text">
+                    <p class="topic-name" id="@item.ID">@item.Text</p>
+                </div>
+                <div class="topic-block topic-info">
+                    <p>12</p>
+                </div>
+                <div class="topic-block topic-info">
+                    <p>@item.Author</p>
+                </div>
+                <div class="topic-block topic-info">
+                    <p>@item.UpdatedAt</p>
+                </div>
             </div>
-            <div class="topic-block topic-info">
-                <p>12</p>
-            </div>
-            <div class="topic-block topic-info">
-                <p>Chiesa</p>
-            </div>
-            <div class="topic-block topic-info">
-                <p>8 июля 2021 г.</p>
-            </div>
-        </div>
+        }
         @if (User.Identity.IsAuthenticated)
         {
             <form class="add-topic-form flex-column invisible" method="post" id="add_topic_form">
