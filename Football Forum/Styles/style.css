@@ -49,25 +49,6 @@
     justify-content: flex-start;
 }
 
-.add-btn {
-    margin-top: 20px;
-    width: 20%;
-    margin-left: 80%;
-}
-
-.invisible {
-    display: none;
-}
-
-.test {
-    border: 1px solid black;
-    margin-top: 20px;
-}
-
-.test:last-child {
-    margin-bottom: 20px;
-}
-
 .page-footer {
     height: 100px;
     margin-top: -50px;

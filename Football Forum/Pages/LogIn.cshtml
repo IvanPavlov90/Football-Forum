@@ -2,7 +2,7 @@
 @using EPAM.FootballForum.PL.Web.Models;
 @using EPAM.FootballForum.Common.Entities;
 @{
-    Layout = "~/Layouts/_BasicLayout.cshtml";
+    Layout = "~/Layouts/_LogInLayout.cshtml";
     FormsAuthentication.SignOut();
     Page.Title = "Страница входа";
     PasswordHasher hasher = new PasswordHasher();
@@ -15,9 +15,8 @@
         string password = Request["password"];
         if (DependencyResolver.Instance.UserBLL.UserAuthentication(login, hasher.GetHash(password)))
         {
-            User user = DependencyResolver.Instance.UserBLL.GetUser(login);
             FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
-            Response.Redirect("~/Index.cshtml?userID=" + user.ID.ToString());
+            Response.Redirect("~");
         }
         else
         {
@@ -49,7 +48,7 @@
         </div>
     </section>
 }
-else
+else if (User.Identity.IsAuthenticated)
 {
     <section class="main-content flex-column flex-row" id="content">
         <div class="main-content__center flex-column flex-start">

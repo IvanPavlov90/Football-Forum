@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Styles/style.css" rel="stylesheet" />
     <link href="~/Styles/registry.css" rel="stylesheet" />
-    <link href="~/Styles/Forum Topics.css" rel="stylesheet" />
     <title>@Page.Title</title>
 </head>
 <body>
-    @RenderPage("~/Partial Pages/_Header.cshtml")
+    <header class="page-header flex-column" id="header">
+        <div>
+            <span class="logo">Форум футбольных болельщиков</span>
+        </div>
+        <div>
+            <a class="link" href="~/Pages/LogIn.cshtml">Вход/Регистрация</a>
+            <a class="link" href="~/Index.cshtml">Форум</a>
+            <a class="link">Правила</a>
+        </div>
+    </header>
     @RenderBody()
     @RenderPage("~/Partial Pages/_Footer.cshtml")
 </body>

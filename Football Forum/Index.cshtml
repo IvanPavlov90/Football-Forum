@@ -5,9 +5,66 @@
 
 <section class="main-content flex-column flex-row" id="content">
     <div class="main-content__center flex-column flex-start">
-        <button class="add-btn invisible">Добавить тему</button>
-        <div class="test">
-            123
+        @if (User.Identity.IsAuthenticated)
+        {
+            <button class="add-btn" id="add_topic_btn">Добавить тему</button>
+        }
+        else
+        {
+            <button class="add-btn invisible">Добавить тему</button>
+        }
+        <div class="test flex-column flex-row">
+            <div class="topic-block topic-text">
+                <p>Название темы</p>
+            </div>
+            <div class="topic-block topic-info">
+                <p>Сообщения</p>
+            </div>
+            <div class="topic-block topic-info">
+                <p>Автор</p>
+            </div>
+            <div class="topic-block topic-info">
+                <p>Дата обновления</p>
+            </div>
         </div>
+        <div class="test flex-column flex-row">
+            <div class="topic-block topic-text">
+                <p class="topic-name" id="1">Игра сборной Италии на Евро-2020</p>
+            </div>
+            <div class="topic-block topic-info">
+                <p>12</p>
+            </div>
+            <div class="topic-block topic-info">
+                <p>Chiesa</p>
+            </div>
+            <div class="topic-block topic-info">
+                <p>8 июля 2021 г.</p>
+            </div>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form class="add-topic-form flex-column invisible" method="post" id="add_topic_form">
+                <p>Введите название темы:</p>
+                <textarea class="add-topic-form__textarea" rows="5">
+
+                </textarea>
+                <input type="submit" value="Отправить" class="add-topic-form add-topic-form__btn">
+            </form>
+        }
     </div>
 </section>
+
+<script type="text/javascript">
+    let addTopicBtn = document.getElementById('add_topic_btn');
+    addTopicBtn.addEventListener("click", () => {
+        let addTopicForm = document.getElementById('add_topic_form');
+        addTopicForm.classList.toggle('invisible');
+    });
+
+    let topicNames = document.getElementsByClassName('topic-name');
+    for (var i = 0; i < topicNames.length; i++) {
+        topicNames[i].addEventListener("click", (event) => {
+            console.log(event.target.id);
+        });
+    };
+</script>
