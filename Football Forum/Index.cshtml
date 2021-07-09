@@ -31,7 +31,7 @@
                 <p>Сообщения</p>
             </div>
             <div class="topic-block topic-info">
-                <p>Автор</p>
+                <p>Автор темы</p>
             </div>
             <div class="topic-block topic-info">
                 <p>Дата обновления</p>
@@ -39,12 +39,13 @@
         </div>
         @foreach (var item in topics)
         {
+            IEnumerable<Message> messages = DependencyResolver.Instance.MessageBLL.GetAllTopicMessages(item.ID);
             <div class="test flex-column flex-row">
                 <div class="topic-block topic-text">
                     <p class="topic-name" id="@item.ID">@item.Text</p>
                 </div>
                 <div class="topic-block topic-info">
-                    <p>12</p>
+                    <p>@messages.Count()</p>
                 </div>
                 <div class="topic-block topic-info">
                     <p>@item.Author</p>
