@@ -2,6 +2,7 @@
 using EPAM.FootballForum.Common.Entities;
 using EPAM.FootballForum.DAL.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace EPAM.FootballForum.BLL.Logic
 {
@@ -15,5 +16,7 @@ namespace EPAM.FootballForum.BLL.Logic
         }
 
         public bool AddMessage(Message newMessage) => _messageDal.AddMessage(newMessage);
+
+        public IEnumerable<Message> GetAllTopicMessages(int id) => _messageDal.GetAllTopicMessages(id);
     }
 }

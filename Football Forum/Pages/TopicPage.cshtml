@@ -7,6 +7,8 @@
     Int32.TryParse(id, out topicID);
     string text = Request["text"];
     Topic topic = DependencyResolver.Instance.TopicBLL.GetTopicById(topicID);
+    Page.Title = topic.Text;
+    IEnumerable<Message> messages = DependencyResolver.Instance.MessageBLL.GetAllTopicMessages(topicID);
     User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
     if (IsPost)
     {
@@ -40,34 +42,60 @@ else
                     <p>Тема создана @topic.CreatedAt</p>
                 </div>
             </div>
-            <div class="message flex-column flex-row">
-                <div class="message-block message-name">
-                    <p>
-                        Я смысл этой жизни вижу в том,
-                        Чтоб не жалея ни души, ни тела,
-                        Идти вперёд, любить и делать дело,
-                        Себя не оставляя на потом.
-                    </p>
-                    <button class="edit-btn" id="edit_message_btn">Редактировать</button>
+            @foreach (var item in messages)
+            {
+                <div class="message flex-column flex-row">
+                    <div class="message-block message-name">
+                        <p>@item.Text</p>
+                    </div>
+                    <div class="message-block info">
+                        <p>@item.Author</p>
+                        <p>@item.CreatedAt</p>
+                    </div>
                 </div>
-                <div class="message-block info">
-                    <p>informalpast</p>
-                    <p>6 июля 2021 года 19:11:43</p>
-                </div>
-            </div>
+            }
             <button class="add-message-btn" id="add_message_btn">Добавить сообщение</button>
             <form class="add-topic-form flex-column  invisible" method="post" id="add_message_form">
-                <textarea class="add-topic-form__textarea" name ="text" rows="5"></textarea>
+                <textarea class="add-topic-form__textarea" name="text" rows="5" id="textarea"></textarea>
                 <input type="submit" value="Отправить" class="add-topic-form add-topic-form__btn">
             </form>
+            <div id="errorBox">
+
+            </div>
         </div>
     </section>
 }
 
 <script type="text/javascript">
+    let addMessageForm = document.getElementById('add_message_form');
     let addMessageBtn = document.getElementById('add_message_btn');
+
     addMessageBtn.addEventListener("click", () => {
-        let addTopicForm = document.getElementById('add_message_form');
-        addTopicForm.classList.toggle('invisible');
+        addMessageForm.classList.toggle('invisible');
+        errorBox.classList.toggle('invisible');
     });
+
+    addMessageForm.addEventListener("submit", (event) => {
+        if (!checkValidity()) {
+            event.preventDefault();
+        }
+    });
+
+    function checkValidity() {
+        const textRegex = /^[^\s]/g;
+        let textArea = document.getElementById('textarea');
+        if (!textRegex.test(textArea.value)) {
+            showError(errorBox, "Пожалуйста, не начинайте свое сообщение с пробелов.");
+            return false;
+        }
+        return true;
+    }
+
+    function showError(elem, message) {
+        elem.innerHTML = "";
+        let errorDiv = document.createElement('div');
+        elem.append(errorDiv);
+        elem.className = "error-div_topic";
+        elem.innerHTML = message;
+    }
 </script>

@@ -11,6 +11,7 @@
 .test {
     border: 1px solid black;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .test:last-child {
@@ -22,9 +23,9 @@
     text-align: center;
 }
 
-    .topic-block:last-child {
+.topic-block:last-child {
         border-right: none;
-    }
+}
 
 .topic-name:hover {
     text-decoration: underline;
@@ -40,6 +41,7 @@
 
 .add-topic-form {
     margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .add-topic-form__textarea {
@@ -48,4 +50,10 @@
 
 .add-topic-form__btn {
     width: 10%;
+}
+
+.error-div_topic {
+    width: 40%;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

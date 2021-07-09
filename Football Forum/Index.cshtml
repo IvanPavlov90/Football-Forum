@@ -58,26 +58,55 @@
         {
             <form class="add-topic-form flex-column invisible" method="post" id="add_topic_form">
                 <p>Введите название темы:</p>
-                <textarea class="add-topic-form__textarea" rows="5" name="text">
+                <textarea class="add-topic-form__textarea" rows="5" name="text" id="textarea">
 
                 </textarea>
                 <input type="submit" value="Отправить" class="add-topic-form add-topic-form__btn">
             </form>
+            <div id="errorBox">
+
+            </div>
         }
     </div>
 </section>
 
 <script type="text/javascript">
+    let addTopicForm = document.getElementById('add_topic_form');
     let addTopicBtn = document.getElementById('add_topic_btn');
     addTopicBtn.addEventListener("click", () => {
-        let addTopicForm = document.getElementById('add_topic_form');
         addTopicForm.classList.toggle('invisible');
+        errorBox.classList.toggle('invisible');
     });
 
     let topicNames = document.getElementsByClassName('topic-name');
     for (var i = 0; i < topicNames.length; i++) {
         topicNames[i].addEventListener("click", (event) => {
-            document.location.href = "Pages/Topic.cshtml?id=" + event.target.id;
+            document.location.href = "Pages/TopicPage.cshtml?id=" + event.target.id;
         });
     };
+
+    addTopicForm.addEventListener("submit", (event) => {
+        if (!checkValidity()) {
+            event.preventDefault();
+        }
+    });
+
+    function checkValidity() {
+        const textRegex = /^[^\s]/g;
+        let textArea = document.getElementById('textarea');
+
+        if (!textRegex.test(textArea.value)) {
+            showError(errorBox, "Пожалуйста, не начинайте свое сообщение с пробелов.");
+            return false;
+        }
+        return true;
+    }
+
+    function showError(elem, message) {
+        elem.innerHTML = "";
+        let errorDiv = document.createElement('div');
+        elem.append(errorDiv);
+        elem.className = "error-div_topic";
+        elem.innerHTML = message;
+    }
 </script>

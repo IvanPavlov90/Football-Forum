@@ -1,5 +1,7 @@
 ﻿using EPAM.FootballForum.Common.Entities;
 using EPAM.FootballForum.DAL.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 
@@ -26,6 +28,29 @@ namespace EPAM.FootballForum.DAL.Logic
                 _connection.Open();
                 var result = command.ExecuteNonQuery();
                 return result > 0;
+            }
+        }
+
+        public IEnumerable<Message> GetAllTopicMessages(int id)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Messages_GetAllTopicMessages = "GetMessages";
+                SqlCommand command = new SqlCommand(Messages_GetAllTopicMessages, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Topic_id", id);
+                _connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    yield return new Message(
+                        author: (string)reader["Login"],
+                        createdAt: (DateTime)reader["Created_At"],
+                        text: (string)reader["Text"]
+                    );
+                }
             }
         }
     }

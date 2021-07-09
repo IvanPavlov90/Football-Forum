@@ -25,6 +25,13 @@ namespace EPAM.FootballForum.Common.Entities
             Author = author;
         }
 
+        public Topic(string text, DateTime createdAt, string author)
+        {
+            Text = text;
+            CreatedAt = createdAt;
+            Author = author;
+        }
+
         public Topic(int creatorid, string text, DateTime createdAt, DateTime updatedAt)
         {
             CreatorID = creatorid;
@@ -76,12 +83,9 @@ namespace EPAM.FootballForum.Common.Entities
         public DateTime CreatedAt
         {
             get => _createdAt;
-            private set
+            protected set
             {
-                if (value > DateTime.Now)
-                    throw new ArgumentException("CreatedAt field can't be more then tonight's date.");
-                else
-                    _createdAt = value;
+                _createdAt = value;
             }
         }
 
@@ -91,10 +95,7 @@ namespace EPAM.FootballForum.Common.Entities
             get => _updatedAt;
             private set
             {
-                if (value > DateTime.Now)
-                    throw new ArgumentException("CreatedAt field can't be more then tonight's date.");
-                else
-                    _updatedAt = value;
+                _updatedAt = value;
             }
         }
 

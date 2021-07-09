@@ -99,16 +99,16 @@
     <Content Include="Pages\LogIn.cshtml" />
     <Content Include="Pages\Register.cshtml" />
     <Content Include="Layouts\_LogInLayout.cshtml" />
-    <Content Include="Pages\Topic.cshtml" />
+    <Content Include="Pages\TopicPage.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
-    <Content Include="Styles\Forum Topics.css" />
-    <Content Include="Styles\registry.css" />
+    <Content Include="Styles\Forum-Main-Page%28Index%29.css" />
+    <Content Include="Styles\Registry-Form-Styles.css" />
     <Content Include="Styles\style.css" />
-    <Content Include="Styles\Topic.css" />
+    <Content Include="Styles\TopicPage.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
