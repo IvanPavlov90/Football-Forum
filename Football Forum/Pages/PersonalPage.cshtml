@@ -15,6 +15,18 @@
         userInfo.Age = currentUser.Age;
         userInfo.ID = currentUser.ID;
     }
+    else
+    {
+        int userID;
+        Int32.TryParse(id, out userID);
+        User currentUser = DependencyResolver.Instance.UserBLL.GetUser(userID);
+        Page.Title = currentUser.Login;
+        userInfo.Login = currentUser.Login;
+        userInfo.CreatedAt = currentUser.CreatedAt;
+        userInfo.Email = currentUser.Email;
+        userInfo.Age = currentUser.Age;
+        userInfo.ID = currentUser.ID;
+    }
     if (IsPost)
     {
         string login = Request["login"];
