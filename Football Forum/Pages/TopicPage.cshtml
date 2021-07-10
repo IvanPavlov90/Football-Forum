@@ -51,6 +51,10 @@ else
                     <div class="message-block info">
                         <p id="@DependencyResolver.Instance.UserBLL.GetUser(item.Author).ID" class="topic-name">@item.Author</p>
                         <p>@item.CreatedAt</p>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <button id="@item.ID" type="button" class="btn btn-danger">Удалить сообщение</button>
+                        }
                     </div>
                 </div>
             }
@@ -67,40 +71,43 @@ else
 }
 
 <script type="text/javascript">
-    let addMessageForm = document.getElementById('add_message_form');
-    let addMessageBtn = document.getElementById('add_message_btn');
 
-    addMessageBtn.addEventListener("click", () => {
-        addMessageForm.classList.toggle('invisible');
-        errorBox.classList.toggle('invisible');
-    });
+    const AddMessage = function () {
+        let addMessageForm = document.getElementById('add_message_form');
+        let addMessageBtn = document.getElementById('add_message_btn');
 
-    addMessageForm.addEventListener("submit", (event) => {
-        if (!checkValidity()) {
-            event.preventDefault();
+        addMessageBtn.addEventListener("click", () => {
+            addMessageForm.classList.toggle('invisible');
+            errorBox.classList.toggle('invisible');
+        });
+
+        addMessageForm.addEventListener("submit", (event) => {
+            if (!checkValidity()) {
+                event.preventDefault();
+            }
+        });
+
+        function checkValidity() {
+            const textRegex = /^[^\s]/g;
+            let textArea = document.getElementById('textarea');
+            if (!textRegex.test(textArea.value)) {
+                showError(errorBox, "Пожалуйста, не начинайте свое сообщение с пробелов.");
+                return false;
+            }
+            return true;
         }
-    });
 
-    function checkValidity() {
-        const textRegex = /^[^\s]/g;
-        let textArea = document.getElementById('textarea');
-        if (!textRegex.test(textArea.value)) {
-            showError(errorBox, "Пожалуйста, не начинайте свое сообщение с пробелов.");
-            return false;
+        function showError(elem, message) {
+            elem.innerHTML = "";
+            let errorDiv = document.createElement('div');
+            elem.append(errorDiv);
+            elem.className = "error-div_topic";
+            elem.innerHTML = message;
         }
-        return true;
-    }
-
-    function showError(elem, message) {
-        elem.innerHTML = "";
-        let errorDiv = document.createElement('div');
-        elem.append(errorDiv);
-        elem.className = "error-div_topic";
-        elem.innerHTML = message;
     }
 
     const GoToAuthorPage = function () {
-        let topicNames = document.getElementsByClassName('topic-name');
+        const topicNames = document.getElementsByClassName('topic-name');
         for (var i = 0; i < topicNames.length; i++) {
             topicNames[i].addEventListener("click", (event) => {
                 document.location.href = "PersonalPage.cshtml?id=" + event.target.id;
@@ -108,5 +115,24 @@ else
         };
     };
 
+    const DeleteMessage = function () {
+        const deletebtn = document.getElementsByClassName('btn btn-danger');
+        for (var i = 0; i < deletebtn.length; i++) {
+            deletebtn[i].addEventListener("click", (event) => {
+                $.ajax({
+                    method: "POST",
+                    url: "DeleteMessage.cshtml",
+                    data: { msgID: event.target.id },
+                    success: [function () {
+                        event.target.parentNode.parentNode.innerHTML="Данное сообщение было удалено."
+                    }]
+                });
+            });
+        };
+    }
+
+    DeleteMessage();
+    AddMessage();
     GoToAuthorPage();
+
 </script>

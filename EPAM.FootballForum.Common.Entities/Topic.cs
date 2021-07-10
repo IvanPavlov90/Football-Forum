@@ -50,7 +50,7 @@ namespace EPAM.FootballForum.Common.Entities
         public int ID
         {
             get => _id;
-            private set
+            protected set
             {
                 if (value <= 0)
                     throw new ArgumentException("ID can't be less then 0.");

@@ -35,7 +35,7 @@ namespace EPAM.FootballForum.DAL.Logic
         {
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
-                string[] result = new string[1];
+                string[] result = new string[2];
                 var Users_GetRole = "GetRole";
                 SqlCommand command = new SqlCommand(Users_GetRole, _connection)
                 {
@@ -47,7 +47,15 @@ namespace EPAM.FootballForum.DAL.Logic
                 while (reader.Read())
                 {
                     result[0] = (string)reader[0];
-                    return result;
+                    if (result[1] != "")
+                    {
+                        result[1] = (string)reader[1];
+                        return result;
+                    } else
+                    {
+                        result[1] = String.Empty;
+                        return result;
+                    }
                 }
                 return result;
             }

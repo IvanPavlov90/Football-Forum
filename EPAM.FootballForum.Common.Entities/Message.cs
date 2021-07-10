@@ -15,8 +15,9 @@ namespace EPAM.FootballForum.Common.Entities
             TopicID = topicid;
         }
 
-        public Message(string text, DateTime createdAt, string author) : base(text, createdAt, author)
+        public Message(int id, string text, DateTime createdAt, string author) : base(text, createdAt, author)
         {
+            ID = id;
             Text = text;
             CreatedAt = createdAt;
             Author = author;

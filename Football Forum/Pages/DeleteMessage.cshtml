@@ -1,0 +1,10 @@
+﻿@using EPAM.FootballForum.Common.Dependencies;
+@{
+    if (IsAjax)
+    {
+        string msgid = Request["msgID"];
+        int messageID;
+        Int32.TryParse(msgid, out messageID);
+        DependencyResolver.Instance.MessageBLL.DeleteMessage(messageID);
+    }
+}

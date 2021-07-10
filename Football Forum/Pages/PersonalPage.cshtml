@@ -63,7 +63,7 @@ else if (User.Identity.IsAuthenticated)
                     </ul>
                 </div>
             </div>
-           @if (User.IsInRole("Administrator"))
+           @if (User.IsInRole("Administrator") && User.Identity.Name != userInfo.Login)
            {
                 <div class="message flex-column flex-row flex-start">
                     <div class="edit-block edit-block-btn" id="block_btn">

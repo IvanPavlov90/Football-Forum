@@ -48,7 +48,7 @@
                     <p>@messages.Count()</p>
                 </div>
                 <div class="topic-block topic-info">
-                    <p id="@DependencyResolver.Instance.UserBLL.GetUser(item.Author).ID" class="topic-name">@item.Author</p>
+                    <p class="topic-name author" id="@DependencyResolver.Instance.UserBLL.GetUser(item.Author).ID">@item.Author</p>
                 </div>
                 <div class="topic-block topic-info">
                     <p>@item.UpdatedAt</p>
@@ -112,7 +112,7 @@
     }
 
     const GoToAuthorPage = function () {
-        let topicNames = document.getElementsByClassName('topic-name');
+        let topicNames = document.getElementsByClassName('topic-name author');
         for (var i = 0; i < topicNames.length; i++) {
             topicNames[i].addEventListener("click", (event) => {
                 document.location.href = "Pages/PersonalPage.cshtml?id=" + event.target.id;

@@ -105,5 +105,18 @@ namespace EPAM.FootballForum.Common.Entities
                     _role = value;
             }
         }
+
+        private string _secondRole;
+        public string SecondRole
+        {
+            get => _secondRole;
+            private set
+            {
+                if (value == null || value == String.Empty)
+                    throw new ArgumentException($"You can't put null into Role.");
+                else
+                    _secondRole = value;
+            }
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace EPAM.FootballForum.BLL.Interfaces
         bool AddMessage(Message newMessage);
 
         IEnumerable<Message> GetAllTopicMessages(int id);
+
+        bool DeleteMessage(int id);
     }
 }

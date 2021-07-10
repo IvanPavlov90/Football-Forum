@@ -101,6 +101,7 @@
     <Content Include="Layouts\_LogInLayout.cshtml" />
     <Content Include="Pages\TopicPage.cshtml" />
     <Content Include="Pages\PersonalPage.cshtml" />
+    <Content Include="Pages\DeleteMessage.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

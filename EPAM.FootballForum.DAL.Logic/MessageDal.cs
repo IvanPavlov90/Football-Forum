@@ -31,6 +31,22 @@ namespace EPAM.FootballForum.DAL.Logic
             }
         }
 
+        public bool DeleteMessage(int id)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Messages_Delete = "DeleteMessage";
+                SqlCommand command = new SqlCommand(Messages_Delete, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@id", id);
+                _connection.Open();
+                var result = command.ExecuteNonQuery();
+                return result > 0;
+            }
+        }
+
         public IEnumerable<Message> GetAllTopicMessages(int id)
         {
             using (SqlConnection _connection = new SqlConnection(_connectionString))
@@ -46,6 +62,7 @@ namespace EPAM.FootballForum.DAL.Logic
                 while (reader.Read())
                 {
                     yield return new Message(
+                        id: (int)reader["id"],
                         author: (string)reader["Login"],
                         createdAt: (DateTime)reader["Created_At"],
                         text: (string)reader["Text"]
