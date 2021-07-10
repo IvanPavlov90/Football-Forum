@@ -15,5 +15,7 @@ namespace EPAM.FootballForum.BLL.Interfaces
         User GetUser(string login);
 
         User GetUser(int id);
+
+        bool UpdateUser(int id, string login, string email);
     }
 }

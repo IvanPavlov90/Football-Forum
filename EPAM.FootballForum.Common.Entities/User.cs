@@ -38,7 +38,7 @@ namespace EPAM.FootballForum.Common.Entities
         private string _login;
         public string Login {
             get => _login;
-            set 
+            private set 
             {
                 if (value.Trim().Length < 2 || value == null)
                     throw new ArgumentException($"You can't put null or string with length less then 2 into login.");

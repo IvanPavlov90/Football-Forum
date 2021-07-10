@@ -152,5 +152,23 @@ namespace EPAM.FootballForum.DAL.Logic
                 throw new InvalidOperationException("Cannot find user with such id = " + id);
             }
         }
+
+        public bool UpdateUser(int id, string login, string email)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Users_Update = "UpdateUser";
+                SqlCommand command = new SqlCommand(Users_Update, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@Email", email);
+                command.Parameters.AddWithValue("@Login", login);
+                _connection.Open();
+                var result = command.ExecuteNonQuery();
+                return result > 0;
+            }
+        }
     }
 }

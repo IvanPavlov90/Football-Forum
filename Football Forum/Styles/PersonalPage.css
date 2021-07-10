@@ -1,0 +1,22 @@
+﻿.user-name {
+    font-size: 20px;
+}
+
+.attributes-list {
+    list-style: none;
+}
+
+.attributes-list > li {
+    margin-top: 5px;}
+
+.edit-form-margin {
+    margin-top: 20px;
+}
+
+.edit-block {
+    width: 50%;
+}
+
+.edit-block-btn {
+    text-align: center;
+}

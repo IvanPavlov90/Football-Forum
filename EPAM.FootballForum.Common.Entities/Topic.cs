@@ -17,6 +17,12 @@ namespace EPAM.FootballForum.Common.Entities
             Author = author;
         }
 
+        public Topic(int id, string text)
+        {
+            ID = id;
+            Text = text;
+        }
+
         public Topic(int creatorid, string text, DateTime createdAt, string author)
         {
             CreatorID = creatorid;

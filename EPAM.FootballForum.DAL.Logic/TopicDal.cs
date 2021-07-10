@@ -53,6 +53,28 @@ namespace EPAM.FootballForum.DAL.Logic
             }
         }
 
+        public IEnumerable<Topic> GetTopicsByCreatorId(int id)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Topics_GetTopicByCreatorID = "GetTopicsByCreatorID";
+                SqlCommand command = new SqlCommand(Topics_GetTopicByCreatorID, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                _connection.Open();
+                command.Parameters.AddWithValue("@Creator_id", id);
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    yield return new Topic(
+                        id: (int)reader["id"],
+                        text: (string)reader["Text"]
+                    );
+                }
+            }
+        }
+
         public Topic GetTopicById(int id)
         {
             using (SqlConnection _connection = new SqlConnection(_connectionString))
@@ -77,5 +99,6 @@ namespace EPAM.FootballForum.DAL.Logic
                 throw new InvalidOperationException("Cannot find topic with such id = " + id);
             }
         }
+
     }
 }

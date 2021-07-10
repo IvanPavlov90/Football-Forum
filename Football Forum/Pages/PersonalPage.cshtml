@@ -1,0 +1,160 @@
+﻿@using EPAM.FootballForum.Common.Entities;
+@using EPAM.FootballForum.PL.Web.Models;
+@using EPAM.FootballForum.Common.Dependencies;
+@{
+    Layout = "~/Layouts/_BasicLayout.cshtml";
+    var id = Request.QueryString["id"];
+    UserInfo userInfo = new UserInfo();
+    if (id == null)
+    {
+        Page.Title = User.Identity.Name;
+        User currentUser = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
+        userInfo.Login = currentUser.Login;
+        userInfo.CreatedAt = currentUser.CreatedAt;
+        userInfo.Email = currentUser.Email;
+        userInfo.Age = currentUser.Age;
+        userInfo.ID = currentUser.ID;
+    }
+    if (IsPost)
+    {
+        string login = Request["login"];
+        string email = Request["e-mail"];
+        DependencyResolver.Instance.UserBLL.UpdateUser(userInfo.ID, login, email);
+    }
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="main-content flex-column flex-row">
+        <div class="main-content__center flex-column flex-start" id="content">
+            <div id="errorBox">
+                <div class="error-div">
+                    Незарегестрированным пользователем, просмотр данной страницы недоступен.
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else if (User.Identity.IsAuthenticated)
+{
+    <section class="main-content flex-column flex-row" id="content">
+        <div class="main-content__center flex-column flex-start">
+            <div class="message flex-column flex-row">
+                <div class="message-block message-name">
+                    <p class="user-name">@userInfo.Login</p>
+                </div>
+                <div class="message-block message-name">
+                    <ul class="attributes-list">
+                        <li class="user-name">Дага регистрации: @userInfo.CreatedAt</li>
+                        <li class="user-name">E-mail: @userInfo.Email</li>
+                        <li class="user-name">Возраст: @userInfo.Age</li>
+                    </ul>
+                </div>
+            </div>
+           @if (User.IsInRole("Administrator"))
+           {
+                <div class="message flex-column flex-row flex-start">
+                    <div class="edit-block edit-block-btn" id="block_btn">
+                        <button id="change_info_btn">Изменить личную информацию</button>
+                    </div>
+                    <form class="log-form invisible edit-block" method="post" id="change_info_form">
+                        <label for="name">Введите новый логин:</label>
+                        <input type="text" class="log-form__input" name="login" placeholder="Введите логин:" id="login" required>
+                        <label for="e-mail">Введите новый адрес электронной почты:</label>
+                        <input type="text" class="log-form__input" name="e-mail" placeholder="ivanov@yandex.ru" id="e-mail" required>
+                        <input type="submit" class="log-form__input edit-form-margin" name="" value="Изменить личную информацию">
+                        <button class="log-form__input edit-form-margin" id="close_change_info_form">Закрыть форму изменения личной информации</button>
+                    </form>
+                </div>
+                <div class="message flex-column flex-row edit-block">
+                    <div id="errorBox">
+
+                    </div>
+                </div>
+           }
+            <div class="message flex-column flex-row">
+                <div class="message-block message-name">
+                    <p>Список Ваших тем: </p>
+                </div>
+                <div class="message-block message-name">
+                    <ul class="attributes-list">
+                       @foreach (var item in DependencyResolver.Instance.TopicBLL.GetTopicsByCreatorId(userInfo.ID))
+                        {
+                        <li class="topic-name" id="@item.ID">@item.Text</li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<script type="text/javascript">
+    const EditUser = function () {
+        const changeInfoForm = document.getElementById('change_info_form');
+        const changeInfoBtn = document.getElementById('change_info_btn');
+        const changeInfoBtnBlock = document.getElementById('block_btn');
+        const closeChangeInfoForm = document.getElementById('close_change_info_form');
+
+        changeInfoBtn.addEventListener("click", () => {
+            changeInfoBtnBlock.classList.toggle('invisible');
+            changeInfoForm.classList.toggle('invisible');
+        });
+
+        closeChangeInfoForm.addEventListener("click", (event) => {
+            changeInfoBtnBlock.classList.toggle('invisible');
+            changeInfoForm.classList.toggle('invisible');
+            errorBox.removeChild(errorBox.firstChild);
+            event.preventDefault();
+        });
+
+        changeInfoForm.addEventListener("submit", (event) => {
+            if (!checkValidity()) {
+                event.preventDefault();
+            }
+        })
+
+        function checkValidity () {
+            const loginRegex = /^[^\s]{2,}_?[^\s]*$/g;
+            const emailRegex = /^\w{2,}@@{1}\w{2,}.{1}[A-Za-z]{2,}$/g;
+            const loginInput = document.getElementById('login');
+            const emailInput = document.getElementById('e-mail');
+
+            for (let i = 0; i < changeInfoForm.elements.length; i++) {
+                changeInfoForm[i].classList.remove("error-border");
+            }
+
+            if (!loginRegex.test(loginInput.value.trim())) {
+                loginInput.classList.add("error-border");
+                showError(errorBox, "Имя не должно включать пробельных символов. Минимальная длина имени 2 символа. Вместо пробелов используйтие нижнее подчеркивание.");
+                return false;
+            } else if (!emailRegex.test(emailInput.value)) {
+                emailInput.classList.add("error-border");
+                showError(errorBox, "Вы указали неверный e-mail.");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function showError(elem, message) {
+            elem.innerHTML = "";
+            let errorDiv = document.createElement('div');
+            elem.append(errorDiv);
+            elem.innerHTML = message;
+        }
+    };
+
+    const GoToTopicPage = function () {
+        let topicNames = document.getElementsByClassName('topic-name');
+        for (var i = 0; i < topicNames.length; i++) {
+            topicNames[i].addEventListener("click", (event) => {
+                document.location.href = "TopicPage.cshtml?id=" + event.target.id;
+            });
+        };
+    };
+
+    GoToTopicPage();
+    EditUser();
+</script>

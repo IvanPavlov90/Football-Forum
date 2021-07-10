@@ -10,5 +10,7 @@ namespace EPAM.FootballForum.BLL.Interfaces
         IEnumerable<Topic> GetAllTopics();
 
         Topic GetTopicById(int id);
+
+        IEnumerable<Topic> GetTopicsByCreatorId(int id);
     }
 }

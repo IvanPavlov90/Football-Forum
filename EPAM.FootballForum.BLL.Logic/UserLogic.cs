@@ -24,5 +24,7 @@ namespace EPAM.FootballForum.BLL.Logic
         public User GetUser(string login) => _userDal.GetUser(login);
 
         public User GetUser(int id) => _userDal.GetUser(id);
+
+        public bool UpdateUser(int id, string login, string email) => _userDal.UpdateUser(id, login, email);
     }
 }

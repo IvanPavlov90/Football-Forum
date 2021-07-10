@@ -18,6 +18,8 @@ namespace EPAM.FootballForum.BLL.Logic
 
         public IEnumerable<Topic> GetAllTopics() => _topicDal.GetAllTopics();
 
+        public IEnumerable<Topic> GetTopicsByCreatorId(int id) => _topicDal.GetTopicsByCreatorId(id);
+
         public Topic GetTopicById(int id) => _topicDal.GetTopicById(id);
     }
 }
