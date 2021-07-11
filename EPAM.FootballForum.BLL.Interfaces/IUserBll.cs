@@ -1,4 +1,5 @@
 ﻿using EPAM.FootballForum.Common.Entities;
+using System.Collections.Generic;
 
 namespace EPAM.FootballForum.BLL.Interfaces
 {
@@ -16,6 +17,10 @@ namespace EPAM.FootballForum.BLL.Interfaces
 
         User GetUser(int id);
 
-        bool UpdateUser(int id, string login, string email);
+        bool UpdateUser(User user, string secondRole);
+
+        IEnumerable<User> GetAllUsers();
+
+        bool DeleteUser(int id);
     }
 }

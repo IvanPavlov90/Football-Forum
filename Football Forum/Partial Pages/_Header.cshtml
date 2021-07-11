@@ -9,9 +9,8 @@
             <a class="link" href="~/Index.cshtml">Форум</a>
            @if(User.IsInRole("Administrator"))
             {
-               <a class="link">Пользователи</a>
+               <a class="link" href="~/Pages/ManageUsers">Пользователи</a>
             }
-            <a class="link">Правила</a>
             <a class="link" href="~/Pages/PersonalPage">Личный кабинет</a>
             <a class="link" href="~/Pages/LogIn">Выйти</a>
         </div>

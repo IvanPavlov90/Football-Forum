@@ -1,0 +1,83 @@
+﻿@using EPAM.FootballForum.Common.Entities;
+@using EPAM.FootballForum.Common.Dependencies;
+@{
+    Layout = "~/Layouts/_BasicLayout.cshtml";
+    Page.Title = "Упарвление пользователями";
+    IEnumerable<User> users = DependencyResolver.Instance.UserBLL.GetAllUsers();
+    if (IsAjax)
+    {
+        string userid = Request["userID"];
+        int userID;
+        Int32.TryParse(userid, out userID);
+        DependencyResolver.Instance.UserBLL.DeleteUser(userID);
+    }
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+{
+    <section class="main-content flex-column flex-row">
+        <div class="main-content__center flex-column flex-start" id="content">
+            @foreach (var item in users)
+            {
+                if (item.Login != User.Identity.Name)
+                 {
+                    <div class="message flex-column flex-row">
+                        <div class="message-block message-name">
+                            <p id="@item.ID" class="topic-name">@item.Login</p>
+                            <button id="@item.ID" type="button" class="delete-user-btn">Удалить пользователя</button>
+                        </div>
+                        <div class="message-block message-name">
+                            <ul class="attributes-list">
+                                <li class="user-name">Дага регистрации: @item.CreatedAt</li>
+                                <li class="user-name">E-mail: @item.Email</li>
+                                <li class="user-name">Возраст: @item.Age</li>
+                            </ul>
+                        </div>
+                    </div>
+                 }
+            }
+        </div>
+    </section>
+}
+else
+{
+    <section class="main-content flex-column flex-row">
+        <div class="main-content__center flex-column flex-start" id="content">
+            <div id="errorBox">
+                <div class="error-div">
+                    Данный контент доступен для просмотра только пользователям с правами администратора.
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<script type="text/javascript">
+    const DeleteUser = function () {
+        const deletebtn = document.getElementsByClassName('delete-user-btn');
+        for (var i = 0; i < deletebtn.length; i++) {
+            deletebtn[i].addEventListener("click", (event) => {
+                $.ajax({
+                    method: "GET",
+                    url: "ManageUsers.cshtml",
+                    data: { userID: event.target.id },
+                    success: [function () {
+                        event.target.parentNode.parentNode.innerHTML = "Пользователь был удален."
+                    }]
+                });
+            });
+        };
+    }
+
+    const GoToAuthorPage = function () {
+        const topicNames = document.getElementsByClassName('topic-name');
+        for (var i = 0; i < topicNames.length; i++) {
+            topicNames[i].addEventListener("click", (event) => {
+                document.location.href = "PersonalPage.cshtml?id=" + event.target.id;
+            });
+        };
+    };
+
+    DeleteUser();
+    GoToAuthorPage();
+</script>

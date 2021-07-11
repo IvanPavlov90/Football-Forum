@@ -11,6 +11,13 @@
         Topic newTopic = new Topic(user.ID, text, DateTime.Now, DateTime.Now);
         DependencyResolver.Instance.TopicBLL.AddTopic(newTopic);
     }
+    if (IsAjax)
+    {
+        string topicid = Request["topicID"];
+        int topicID;
+        Int32.TryParse(topicid, out topicID);
+        DependencyResolver.Instance.TopicBLL.DeleteTopic(topicID);
+    }
 }
 
 <section class="main-content flex-column flex-row" id="content">
@@ -40,7 +47,7 @@
         @foreach (var item in topics)
         {
             IEnumerable<Message> messages = DependencyResolver.Instance.MessageBLL.GetAllTopicMessages(item.ID);
-            <div class="test flex-column flex-row">
+            <div class="test flex-column flex-row topic-borders">
                 <div class="topic-block topic-text">
                     <p class="topic-name" id="@item.ID">@item.Text</p>
                 </div>
@@ -52,6 +59,10 @@
                 </div>
                 <div class="topic-block topic-info">
                     <p>@item.UpdatedAt</p>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <button id="@item.ID" type="button" class="delete-topic-btn">Удалить тему</button>
+                    }
                 </div>
             </div>
         }
@@ -72,47 +83,52 @@
 </section>
 
 <script type="text/javascript">
-    let addTopicForm = document.getElementById('add_topic_form');
-    let addTopicBtn = document.getElementById('add_topic_btn');
-    addTopicBtn.addEventListener("click", () => {
-        addTopicForm.classList.toggle('invisible');
-        errorBox.classList.toggle('invisible');
-    });
 
-    let topicNames = document.getElementsByClassName('topic-name');
-    for (var i = 0; i < topicNames.length; i++) {
-        topicNames[i].addEventListener("click", (event) => {
-            document.location.href = "Pages/TopicPage.cshtml?id=" + event.target.id;
+    const AddTopic = function () {
+        const addTopicForm = document.getElementById('add_topic_form');
+        const addTopicBtn = document.getElementById('add_topic_btn');
+        addTopicBtn.addEventListener("click", () => {
+            addTopicForm.classList.toggle('invisible');
+            errorBox.classList.toggle('invisible');
         });
-    };
 
-    addTopicForm.addEventListener("submit", (event) => {
-        if (!checkValidity()) {
-            event.preventDefault();
+        addTopicForm.addEventListener("submit", (event) => {
+            if (!checkValidity()) {
+                event.preventDefault();
+            }
+        });
+
+        function checkValidity() {
+            const textRegex = /^[^\s]/g;
+            let textArea = document.getElementById('textarea');
+
+            if (!textRegex.test(textArea.value)) {
+                showError(errorBox, "Пожалуйста, не начинайте свое сообщение с пробелов.");
+                return false;
+            }
+            return true;
         }
-    });
 
-    function checkValidity() {
-        const textRegex = /^[^\s]/g;
-        let textArea = document.getElementById('textarea');
-
-        if (!textRegex.test(textArea.value)) {
-            showError(errorBox, "Пожалуйста, не начинайте свое сообщение с пробелов.");
-            return false;
+        function showError(elem, message) {
+            elem.innerHTML = "";
+            let errorDiv = document.createElement('div');
+            elem.append(errorDiv);
+            elem.className = "error-div_topic";
+            elem.innerHTML = message;
         }
-        return true;
     }
 
-    function showError(elem, message) {
-        elem.innerHTML = "";
-        let errorDiv = document.createElement('div');
-        elem.append(errorDiv);
-        elem.className = "error-div_topic";
-        elem.innerHTML = message;
+    const GoToTopicPage = function () {
+        const topicNames = document.getElementsByClassName('topic-name');
+        for (var i = 0; i < topicNames.length; i++) {
+            topicNames[i].addEventListener("click", (event) => {
+                document.location.href = "Pages/TopicPage.cshtml?id=" + event.target.id;
+            });
+        };
     }
 
     const GoToAuthorPage = function () {
-        let topicNames = document.getElementsByClassName('topic-name author');
+        const topicNames = document.getElementsByClassName('topic-name author');
         for (var i = 0; i < topicNames.length; i++) {
             topicNames[i].addEventListener("click", (event) => {
                 document.location.href = "Pages/PersonalPage.cshtml?id=" + event.target.id;
@@ -120,5 +136,24 @@
         };
     };
 
+    const DeleteTopic = function () {
+        const deletebtn = document.getElementsByClassName('delete-topic-btn');
+        for (var i = 0; i < deletebtn.length; i++) {
+            deletebtn[i].addEventListener("click", (event) => {
+                $.ajax({
+                    method: "GET",
+                    url: "Index.cshtml",
+                    data: { topicID: event.target.id },
+                    success: [function () {
+                        event.target.parentNode.parentNode.innerHTML = "Данное обсуждение было удалено."
+                    }]
+                });
+            });
+        };
+    }
+
+    AddTopic();
+    GoToTopicPage();
     GoToAuthorPage();
+    DeleteTopic();
 </script>

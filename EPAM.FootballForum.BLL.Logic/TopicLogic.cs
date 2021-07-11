@@ -21,5 +21,7 @@ namespace EPAM.FootballForum.BLL.Logic
         public IEnumerable<Topic> GetTopicsByCreatorId(int id) => _topicDal.GetTopicsByCreatorId(id);
 
         public Topic GetTopicById(int id) => _topicDal.GetTopicById(id);
+
+        public bool DeleteTopic(int id) => _topicDal.DeleteTopic(id);
     }
 }

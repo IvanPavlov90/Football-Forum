@@ -13,7 +13,15 @@ namespace EPAM.FootballForum.Common.Entities
             CreatedAt = createdAt;
         }
 
-        public User(string login, int age, string email, string hpassword, string createdAt, string userRole)
+        public User(int id, string login, string email, int age)
+        {
+            ID = id;
+            Login = login;
+            Age = age;
+            Email = email;
+        }
+
+        public User(string login, int age, string email, string hpassword, string createdAt, string userRole, string secondRole)
         {
             Login = login;
             Age = age;
@@ -21,6 +29,7 @@ namespace EPAM.FootballForum.Common.Entities
             HPassword = hpassword;
             CreatedAt = createdAt;
             Role = userRole;
+            SecondRole = secondRole;
         }
 
         private int _id;
@@ -112,9 +121,6 @@ namespace EPAM.FootballForum.Common.Entities
             get => _secondRole;
             private set
             {
-                if (value == null || value == String.Empty)
-                    throw new ArgumentException($"You can't put null into Role.");
-                else
                     _secondRole = value;
             }
         }

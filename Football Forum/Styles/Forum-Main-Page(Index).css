@@ -24,7 +24,7 @@
 }
 
 .topic-block:last-child {
-        border-right: none;
+    border-right: none;
 }
 
 .topic-name:hover {
@@ -56,4 +56,8 @@
     width: 40%;
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+.delete-topic-btn {
+    margin-bottom: 10px;
 }

@@ -1,6 +1,7 @@
 ﻿using EPAM.FootballForum.BLL.Interfaces;
 using EPAM.FootballForum.Common.Entities;
 using EPAM.FootballForum.DAL.Interfaces;
+using System.Collections.Generic;
 
 namespace EPAM.FootballForum.BLL.Logic
 {
@@ -25,6 +26,10 @@ namespace EPAM.FootballForum.BLL.Logic
 
         public User GetUser(int id) => _userDal.GetUser(id);
 
-        public bool UpdateUser(int id, string login, string email) => _userDal.UpdateUser(id, login, email);
+        public bool UpdateUser(User user, string secondRole) => _userDal.UpdateUser(user, secondRole);
+
+        public IEnumerable<User> GetAllUsers() => _userDal.GetAllUsers();
+
+        public bool DeleteUser(int id) => _userDal.DeleteUser(id);
     }
 }

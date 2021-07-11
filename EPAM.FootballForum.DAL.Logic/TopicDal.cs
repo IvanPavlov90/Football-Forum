@@ -100,5 +100,20 @@ namespace EPAM.FootballForum.DAL.Logic
             }
         }
 
+        public bool DeleteTopic(int id)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Topics_Delete = "DeleteTopic";
+                SqlCommand command = new SqlCommand(Topics_Delete, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@id", id);
+                _connection.Open();
+                var result = command.ExecuteNonQuery();
+                return result > 0;
+            }
+        }
     }
 }

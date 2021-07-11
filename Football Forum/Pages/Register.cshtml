@@ -28,7 +28,7 @@
             string password = Request["password"];
             int userAge;
             Int32.TryParse(age, out userAge);
-            User user = new User(login, userAge, email, hasher.GetHash(password), DateTime.Now.ToString(), "User");
+            User user = new User(login, userAge, email, hasher.GetHash(password), DateTime.Now.ToString(), "User", "");
             DependencyResolver.Instance.UserBLL.AddUser(user);
             Response.Redirect("~/Pages/LogIn");
         }

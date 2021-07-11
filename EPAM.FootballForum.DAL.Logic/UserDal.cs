@@ -1,6 +1,7 @@
 ﻿using EPAM.FootballForum.Common.Entities;
 using EPAM.FootballForum.DAL.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 
@@ -25,6 +26,7 @@ namespace EPAM.FootballForum.DAL.Logic
                 command.Parameters.AddWithValue("@Password", user.HPassword);
                 command.Parameters.AddWithValue("@CreatedAt", user.CreatedAt);
                 command.Parameters.AddWithValue("@Role", user.Role);
+                command.Parameters.AddWithValue("@SecondRole", user.SecondRole);
                 _connection.Open();
                 var result = command.ExecuteNonQuery();
                 return result > 0;
@@ -161,7 +163,7 @@ namespace EPAM.FootballForum.DAL.Logic
             }
         }
 
-        public bool UpdateUser(int id, string login, string email)
+        public bool UpdateUser(User user, string secondRole)
         {
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
@@ -170,9 +172,51 @@ namespace EPAM.FootballForum.DAL.Logic
                 {
                     CommandType = System.Data.CommandType.StoredProcedure
                 };
+                command.Parameters.AddWithValue("@id", user.ID);
+                command.Parameters.AddWithValue("@Email", user.Email);
+                command.Parameters.AddWithValue("@Login", user.Login);
+                command.Parameters.AddWithValue("@Age", user.Age);
+                command.Parameters.AddWithValue("@SecondRole", secondRole);
+                _connection.Open();
+                var result = command.ExecuteNonQuery();
+                return result > 0;
+            }
+        }
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Users_GetAllUsers = "GetAllUsers";
+                SqlCommand command = new SqlCommand(Users_GetAllUsers, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                _connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    yield return new User(
+                        id: (int)reader["id"],
+                        login: (string)reader["Login"],
+                        age: (int)reader["Age"],
+                        email: (string)reader["Email"],
+                        createdAt: (string)reader["CreatedAt"]
+                    );
+                }
+            }
+        }
+
+        public bool DeleteUser(int id)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var Users_Delete = "DeleteUser";
+                SqlCommand command = new SqlCommand(Users_Delete, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
                 command.Parameters.AddWithValue("@id", id);
-                command.Parameters.AddWithValue("@Email", email);
-                command.Parameters.AddWithValue("@Login", login);
                 _connection.Open();
                 var result = command.ExecuteNonQuery();
                 return result > 0;
