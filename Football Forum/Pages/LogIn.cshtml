@@ -1,27 +1,35 @@
 ﻿@using EPAM.FootballForum.Common.Dependencies;
 @using EPAM.FootballForum.PL.Web.Models;
-@using EPAM.FootballForum.Common.Entities;
+@using NLog;
 @{
     Layout = "~/Layouts/_LogInLayout.cshtml";
     FormsAuthentication.SignOut();
     Page.Title = "Страница входа";
+    Logger logger = LogManager.GetCurrentClassLogger();
+    logger.Info("User at LogIn Page");
     PasswordHasher hasher = new PasswordHasher();
     SearchUserAuthData userFoundState = new SearchUserAuthData();
     string login = Request["login"];
-
-    if (IsPost)
+    try
     {
-        userFoundState.LoginStatus(false);
-        string password = Request["password"];
-        if (DependencyResolver.Instance.UserBLL.UserAuthentication(login, hasher.GetHash(password)))
+        if (IsPost)
         {
-            FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
-            Response.Redirect("~");
+            userFoundState.LoginStatus(false);
+            string password = Request["password"];
+            if (DependencyResolver.Instance.UserBLL.UserAuthentication(login, hasher.GetHash(password)))
+            {
+                FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
+                Response.Redirect("~", false);
+            }
+            else
+            {
+                userFoundState.LoginStatus(true);
+            }
         }
-        else
-        {
-            userFoundState.LoginStatus(true);
-        }
+    } catch (Exception ex)
+    {
+        logger.Error(ex, "This exception came from login page.");
+        Response.Redirect("~/Pages/ErrorPage");
     }
 }
 

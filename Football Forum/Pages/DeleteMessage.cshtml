@@ -1,10 +1,20 @@
 ﻿@using EPAM.FootballForum.Common.Dependencies;
+@using NLog;
 @{
-    if (IsAjax)
+    Logger logger = LogManager.GetCurrentClassLogger();
+    logger.Info($"User {User.Identity.Name} at delete users Page", User.Identity.Name);
+    try
     {
-        string msgid = Request["msgID"];
-        int messageID;
-        Int32.TryParse(msgid, out messageID);
-        DependencyResolver.Instance.MessageBLL.DeleteMessage(messageID);
+        if (IsAjax)
+        {
+            string msgid = Request["msgID"];
+            int messageID;
+            Int32.TryParse(msgid, out messageID);
+            DependencyResolver.Instance.MessageBLL.DeleteMessage(messageID);
+        }
+    } catch (Exception ex)
+    {
+        logger.Error(ex, "This exception came from delete message page.");
+        Response.Redirect("~/Pages/ErrorPage");
     }
 }

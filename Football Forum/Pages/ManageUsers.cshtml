@@ -1,15 +1,25 @@
 ﻿@using EPAM.FootballForum.Common.Entities;
 @using EPAM.FootballForum.Common.Dependencies;
+@using NLog;
 @{
     Layout = "~/Layouts/_BasicLayout.cshtml";
     Page.Title = "Упарвление пользователями";
+    Logger logger = LogManager.GetCurrentClassLogger();
+    logger.Info($"User {User.Identity.Name} at manage users Page", User.Identity.Name);
     IEnumerable<User> users = DependencyResolver.Instance.UserBLL.GetAllUsers();
-    if (IsAjax)
+    try
     {
-        string userid = Request["userID"];
-        int userID;
-        Int32.TryParse(userid, out userID);
-        DependencyResolver.Instance.UserBLL.DeleteUser(userID);
+        if (IsAjax)
+        {
+            string userid = Request["userID"];
+            int userID;
+            Int32.TryParse(userid, out userID);
+            DependencyResolver.Instance.UserBLL.DeleteUser(userID);
+        }
+    } catch (Exception ex)
+    {
+        logger.Error(ex, "This exception came from manage users page.");
+        Response.Redirect("~/Pages/ErrorPage");
     }
 }
 
@@ -20,7 +30,7 @@
             @foreach (var item in users)
             {
                 if (item.Login != User.Identity.Name)
-                 {
+                {
                     <div class="message flex-column flex-row">
                         <div class="message-block message-name">
                             <p id="@item.ID" class="topic-name">@item.Login</p>
@@ -34,7 +44,7 @@
                             </ul>
                         </div>
                     </div>
-                 }
+                }
             }
         </div>
     </section>

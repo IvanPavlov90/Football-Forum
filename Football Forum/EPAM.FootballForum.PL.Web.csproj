@@ -103,6 +103,13 @@
     <Content Include="Pages\PersonalPage.cshtml" />
     <Content Include="Pages\DeleteMessage.cshtml" />
     <Content Include="Pages\ManageUsers.cshtml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Pages\ErrorPage.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

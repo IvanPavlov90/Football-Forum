@@ -121,6 +121,9 @@ namespace EPAM.FootballForum.Common.Entities
             get => _secondRole;
             private set
             {
+                if (value == null)
+                    throw new ArgumentException($"You can't put null into SecondRole.");
+                else
                     _secondRole = value;
             }
         }

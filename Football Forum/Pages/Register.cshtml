@@ -1,37 +1,45 @@
 ﻿@using EPAM.FootballForum.Common.Entities;
 @using EPAM.FootballForum.PL.Web.Models;
 @using EPAM.FootballForum.Common.Dependencies;
-
+@using NLog;
 @{
     Layout = "~/Layouts/_BasicLayout.cshtml";
     Page.Title = "Страница регистрации";
+    Logger logger = LogManager.GetCurrentClassLogger();
+    logger.Info("User at Register Page");
     PasswordHasher hasher = new PasswordHasher();
     SearchUserAuthData userFoundState = new SearchUserAuthData();
     string login = Request["login"];
     string email = Request["e-mail"];
     string age = Request["age"];
-
-    if (IsPost)
+    try
     {
-        userFoundState.LoginStatus(false);
-        userFoundState.EmailStatus(false);
-        if (login == DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email)[0])
+        if (IsPost)
         {
-            userFoundState.LoginStatus(true);
+            userFoundState.LoginStatus(false);
+            userFoundState.EmailStatus(false);
+            if (login == DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email)[0])
+            {
+                userFoundState.LoginStatus(true);
+            }
+            else if (email == DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email)[1])
+            {
+                userFoundState.EmailStatus(true);
+            }
+            else
+            {
+                string password = Request["password"];
+                int userAge;
+                Int32.TryParse(age, out userAge);
+                User user = new User(login, userAge, email, hasher.GetHash(password), DateTime.Now.ToString(), "User", "");
+                DependencyResolver.Instance.UserBLL.AddUser(user);
+                Response.Redirect("~/Pages/LogIn", false);
+            }
         }
-        else if (email == DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email)[1])
-        {
-            userFoundState.EmailStatus(true);
-        }
-        else
-        {
-            string password = Request["password"];
-            int userAge;
-            Int32.TryParse(age, out userAge);
-            User user = new User(login, userAge, email, hasher.GetHash(password), DateTime.Now.ToString(), "User", "");
-            DependencyResolver.Instance.UserBLL.AddUser(user);
-            Response.Redirect("~/Pages/LogIn");
-        }
+    } catch (Exception ex)
+    {
+        logger.Error(ex, "This exception came from register page.");
+        Response.Redirect("~/Pages/ErrorPage");
     }
 }
 
@@ -41,7 +49,7 @@
         <div class="main-content__center flex-column flex-start" id="content">
             <form class="log-form" method="post" id="logForm">
                 <label for="login">Введите логин:</label>
-                <input type="text" class="log-form__input" name="login" placeholder="Введите имя:" id="login" maxlength="25" value="@login" required>
+                <input type="text" class="log-form__input" name="login" placeholder="Введите имя:" id="login" maxlength="25"  value="@login" required>
                 <label for="e-mail">Введите адрес электронной почты:</label>
                 <input type="text" class="log-form__input" name="e-mail" placeholder="ivanov@yandex.ru" id="e-mail" value="@email" required>
                 <label for="age">Введите свой возраст:</label>

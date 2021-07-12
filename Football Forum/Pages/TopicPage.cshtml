@@ -1,7 +1,10 @@
 ﻿@using EPAM.FootballForum.Common.Entities;
 @using EPAM.FootballForum.Common.Dependencies;
+@using NLog;
 @{
     Layout = "~/Layouts/_BasicLayout.cshtml";
+    Logger logger = LogManager.GetCurrentClassLogger();
+    logger.Info($"User {User.Identity.Name} at Topic Page", User.Identity.Name);
     var id = Request.QueryString["id"];
     int topicID;
     Int32.TryParse(id, out topicID);
@@ -9,11 +12,18 @@
     Topic topic = DependencyResolver.Instance.TopicBLL.GetTopicById(topicID);
     Page.Title = topic.Text;
     IEnumerable<Message> messages = DependencyResolver.Instance.MessageBLL.GetAllTopicMessages(topicID);
-    User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
-    if (IsPost)
+    try
     {
-        Message newMessage = new Message(topicID, user.ID, text, DateTime.Now, DateTime.Now);
-        DependencyResolver.Instance.MessageBLL.AddMessage(newMessage);
+        User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
+        if (IsPost)
+        {
+            Message newMessage = new Message(topicID, user.ID, text, DateTime.Now, DateTime.Now);
+            DependencyResolver.Instance.MessageBLL.AddMessage(newMessage);
+        }
+    } catch (Exception ex)
+    {
+        logger.Error(ex, "This exception came from topic page.");
+        Response.Redirect("~/Pages/ErrorPage");
     }
 }
 
@@ -124,7 +134,7 @@ else
                     url: "DeleteMessage.cshtml",
                     data: { msgID: event.target.id },
                     success: [function () {
-                        event.target.parentNode.parentNode.innerHTML="Данное сообщение было удалено."
+                        event.target.parentNode.parentNode.innerHTML = "Данное сообщение было удалено."
                     }]
                 });
             });

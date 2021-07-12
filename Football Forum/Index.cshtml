@@ -1,22 +1,32 @@
-﻿@using EPAM.FootballForum.Common.Entities;
+﻿@using NLog;
+@using EPAM.FootballForum.Common.Entities;
 @using EPAM.FootballForum.Common.Dependencies;
 @{
     Layout = "~/Layouts/_BasicLayout.cshtml";
     Page.Title = "Форум. Основная страница.";
+    Logger logger = LogManager.GetCurrentClassLogger();
     IEnumerable<Topic> topics = DependencyResolver.Instance.TopicBLL.GetAllTopics();
-    string text = Request["text"];
-    if (IsPost)
+    try
     {
-        User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
-        Topic newTopic = new Topic(user.ID, text, DateTime.Now, DateTime.Now);
-        DependencyResolver.Instance.TopicBLL.AddTopic(newTopic);
-    }
-    if (IsAjax)
+        logger.Info($"User {User.Identity.Name} at index Page", User.Identity.Name);
+        string text = Request["text"];
+        if (IsPost)
+        {
+            User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
+            Topic newTopic = new Topic(user.ID, text, DateTime.Now, DateTime.Now);
+            DependencyResolver.Instance.TopicBLL.AddTopic(newTopic);
+        }
+        if (IsAjax)
+        {
+            string topicid = Request["topicID"];
+            int topicID;
+            Int32.TryParse(topicid, out topicID);
+            DependencyResolver.Instance.TopicBLL.DeleteTopic(topicID);
+        }
+    } catch (Exception ex)
     {
-        string topicid = Request["topicID"];
-        int topicID;
-        Int32.TryParse(topicid, out topicID);
-        DependencyResolver.Instance.TopicBLL.DeleteTopic(topicID);
+        logger.Error(ex, "This exception came from index page.");
+        Response.Redirect("~/Pages/ErrorPage");
     }
 }
 
