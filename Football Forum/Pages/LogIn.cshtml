@@ -2,8 +2,8 @@
 @using EPAM.FootballForum.PL.Web.Models;
 @using NLog;
 @{
-    Layout = "~/Layouts/_LogInLayout.cshtml";
     FormsAuthentication.SignOut();
+    Layout = "~/Layouts/_LogInLayout.cshtml";
     Page.Title = "Страница входа";
     Logger logger = LogManager.GetCurrentClassLogger();
     logger.Info("User at LogIn Page");

@@ -1,0 +1,15 @@
+﻿@using NLog;
+@{
+    Logger logger = LogManager.GetCurrentClassLogger();
+    logger.Info($"User {User.Identity.Name} at Topic Page", User.Identity.Name);
+    try
+    {
+        FormsAuthentication.SignOut();
+        Response.Redirect("~/Pages/LogIn", false);
+    }
+    catch (Exception ex)
+    {
+        logger.Error(ex, "This exception came from signout page.");
+        Response.Redirect("~/Pages/ErrorPage");
+    }
+}
