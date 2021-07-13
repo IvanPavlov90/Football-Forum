@@ -93,6 +93,11 @@
 </section>
 
 <script type="text/javascript">
+    const PageHistory = function () {
+        if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+        }
+    };
 
     const AddTopic = function () {
         const addTopicForm = document.getElementById('add_topic_form');
@@ -117,7 +122,7 @@
                 return false;
             }
             return true;
-        }
+        };
 
         function showError(elem, message) {
             elem.innerHTML = "";
@@ -125,8 +130,8 @@
             elem.append(errorDiv);
             elem.className = "error-div_topic";
             elem.innerHTML = message;
-        }
-    }
+        };
+    };
 
     const GoToTopicPage = function () {
         const topicNames = document.getElementsByClassName('topic-name');
@@ -162,6 +167,7 @@
         };
     }
 
+    PageHistory();
     AddTopic();
     GoToTopicPage();
     GoToAuthorPage();
