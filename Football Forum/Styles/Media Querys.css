@@ -1,0 +1,174 @@
+﻿@media all and (max-width: 1450px) {
+    .main-content__center {
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 1200px) {
+    .main-content__center {
+        width: 100%;
+    }
+
+    div.test > .topic-info:nth-child(2) {
+        display: none;
+    }
+
+    .topic-info {
+        width: 15%;
+    }
+
+    .add-topic-form__textarea {
+        width: 70%;
+    }
+
+    .submit-btn {
+        width: 30%;
+    }
+}
+
+@media all and (max-width: 960px) {
+    body, .user-name {
+        font-size: 16px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .main-content {
+        font-size: 14px;
+    }
+
+    .add-topic-form__btn {
+        width: 20%;
+    }
+}
+
+@media all and (max-width: 760px) {
+    .link {
+        margin-left: 10px;
+    }
+
+    div.test > .topic-info:nth-child(3) {
+        display: none;
+    }
+
+    .topic-text {
+        width: 75%;
+    }
+
+    .topic-info {
+        width: 25%;
+    }
+
+    .add-message-btn {
+        width: 30%;
+    }
+
+    .personal-page-name:first-child {
+        width: 40%;
+    }
+
+    .personal-page-name:last-child {
+        width: 60%;
+    }
+
+    .log-form__input {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .log-form > label {
+        margin-left: 10%;
+    }
+
+    .submit-btn {
+        width: 30%;
+    }
+}
+
+@media all and (max-width: 660px) {
+    .link:first-child {
+        display: none;
+    }
+
+    .add-btn {
+        margin-left: 70%;
+        width: 30%;
+    }
+
+    .add-topic-form__textarea {
+        width: 80%;
+    }
+
+    .message-name {
+        width: 100%;
+    }
+
+    .info {
+        display: none;
+    }
+
+    .submit-btn {
+        width: 40%;
+    }
+}
+
+@media all and (max-width: 540px) {
+    .topic-block {
+        border-right: none;
+    }
+
+    .add-topic-form__textarea {
+        width: 90%;
+    }
+
+    .add-topic-form__btn {
+        width: 30%;
+    }
+
+    .add-message-btn {
+        width: 50%;
+    }
+
+    .personal-page-name:first-child {
+        width: 35%;
+    }
+
+    .personal-page-name:last-child {
+        width: 65%;
+    }
+
+    .submit-btn {
+        width: 50%;
+    }
+}
+
+@media all and (max-width: 420px) {
+    .topic-text {
+        width: 100%;
+    }
+
+    div.test > .topic-info:last-child {
+        display: none;
+    }
+
+    .link:nth-child(3) {
+        display: none;
+    }
+
+    .add-btn {
+        margin-left: 50%;
+        width: 50%;
+    }
+
+    .submit-btn {
+        width: 60%;
+    }
+}
+
+@media all and (max-width: 350px) {
+    body {
+        min-width: 350px;
+    }
+}

@@ -74,10 +74,10 @@ else if (User.Identity.IsAuthenticated)
     <section class="main-content flex-column flex-row" id="content">
         <div class="main-content__center flex-column flex-start">
             <div class="message flex-column flex-row">
-                <div class="message-block message-name">
+                <div class="personal-page-block personal-page-name">
                     <p class="user-name">@userInfo.Login</p>
                 </div>
-                <div class="message-block message-name">
+                <div class="personal-page-block personal-page-name">
                     <ul class="attributes-list">
                         <li class="user-name">Дага регистрации: @userInfo.CreatedAt</li>
                         <li class="user-name">E-mail: @userInfo.Email</li>
@@ -111,10 +111,10 @@ else if (User.Identity.IsAuthenticated)
                 </div>
             }
             <div class="message flex-column flex-row">
-                <div class="message-block message-name">
+                <div class="personal-page-block personal-page-name">
                     <p>Список Ваших тем: </p>
                 </div>
-                <div class="message-block message-name">
+                <div class="personal-page-block personal-page-name">
                     <ul class="attributes-list">
                         @foreach (var item in DependencyResolver.Instance.TopicBLL.GetTopicsByCreatorId(userInfo.ID))
                         {

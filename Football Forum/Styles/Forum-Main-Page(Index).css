@@ -32,10 +32,12 @@
 }
 
 .topic-text {
+    word-wrap: break-word;
     width: 70%;
 }
 
 .topic-info {
+    word-wrap: break-word;
     width: 10%;
 }
 
