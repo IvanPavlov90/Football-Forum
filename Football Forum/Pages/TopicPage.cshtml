@@ -19,6 +19,7 @@
         {
             Message newMessage = new Message(topicID, user.ID, text, DateTime.Now, DateTime.Now);
             DependencyResolver.Instance.MessageBLL.AddMessage(newMessage);
+            Response.Redirect("~/Pages/TopicRedirectPage?id=" + topicID, false);
         }
     } catch (Exception ex)
     {

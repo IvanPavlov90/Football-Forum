@@ -15,6 +15,7 @@
             User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
             Topic newTopic = new Topic(user.ID, text, DateTime.Now, DateTime.Now);
             DependencyResolver.Instance.TopicBLL.AddTopic(newTopic);
+            Response.Redirect("~/Pages/IndexRedirectPage", false);
         }
         if (IsAjax)
         {
@@ -93,12 +94,6 @@
 </section>
 
 <script type="text/javascript">
-    const PageHistory = function () {
-        if(window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-        }
-    };
-
     const AddTopic = function () {
         const addTopicForm = document.getElementById('add_topic_form');
         const addTopicBtn = document.getElementById('add_topic_btn');
@@ -118,7 +113,11 @@
             let textArea = document.getElementById('textarea');
 
             if (!textRegex.test(textArea.value)) {
-                showError(errorBox, "Пожалуйста, не начинайте свое сообщение с пробелов.");
+                showError(errorBox, "Пожалуйста, не начинайте название темы с пробелов.");
+                return false;
+            }
+            if (textArea.value.length > 499) {
+                showError(errorBox, "Название темы не может включать более 500 символов.");
                 return false;
             }
             return true;
@@ -167,7 +166,6 @@
         };
     }
 
-    PageHistory();
     AddTopic();
     GoToTopicPage();
     GoToAuthorPage();

@@ -1,0 +1,6 @@
+﻿@{
+    var id = Request.QueryString["id"];
+    int topicID;
+    Int32.TryParse(id, out topicID);
+    Response.Redirect("~/Pages/TopicPage?id=" + topicID, false);
+}

@@ -222,5 +222,6 @@ namespace EPAM.FootballForum.DAL.Logic
                 return result > 0;
             }
         }
+
     }
 }

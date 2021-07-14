@@ -8,6 +8,7 @@
     UserInfo userInfo = new UserInfo();
     Logger logger = LogManager.GetCurrentClassLogger();
     logger.Info($"User {User.Identity.Name} at Personal Page", User.Identity.Name);
+    SearchUserAuthData userFoundState = new SearchUserAuthData();
     try
     {
         if (id == null)
@@ -34,20 +35,34 @@
         }
         if (IsPost)
         {
+            userFoundState.LoginStatus(false);
+            userFoundState.EmailStatus(false);
             string login = Request["login"];
             string email = Request["e-mail"];
             string age = Request["age"];
             int userAge;
             Int32.TryParse(age, out userAge);
-            User user = new User(userInfo.ID, login, email, userAge);
-            string isAdmin = Request["isUserAdmin"];
-            if (isAdmin == "on")
+            string[] authData = DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email);
+            if (login != userInfo.Login && login == authData[0])
             {
-                DependencyResolver.Instance.UserBLL.UpdateUser(user, "Administrator");
+                userFoundState.LoginStatus(true);
             }
-            else
+            else if (email != userInfo.Email && email == authData[1])
             {
-                DependencyResolver.Instance.UserBLL.UpdateUser(user, "");
+                userFoundState.EmailStatus(true);
+            } else {
+                User user = new User(userInfo.ID, login, email, userAge);
+                string isAdmin = Request["isUserAdmin"];
+                if (isAdmin == "on")
+                {
+                    DependencyResolver.Instance.UserBLL.UpdateUser(user, "Administrator");
+                    Response.Redirect("~/Pages/PersonalRedirectPage", false);
+                }
+                else
+                {
+                    DependencyResolver.Instance.UserBLL.UpdateUser(user, "");
+                    Response.Redirect("~/Pages/PersonalRedirectPage", false);
+                }
             }
         }
     } catch (Exception ex)
@@ -106,7 +121,14 @@ else if (User.Identity.IsAuthenticated)
                 </div>
                 <div class="message flex-column flex-row edit-block">
                     <div id="errorBox">
-
+                        @if (IsPost && userFoundState.LoginIsFound)
+                        {
+                                <p>Пользователь с таким логином уже существует!</p>
+                        }
+                        @if (IsPost && userFoundState.EmailIsFound)
+                        {
+                                <p>Пользователь с таким адресом электронной почты уже существует!</p>
+                        }
                     </div>
                 </div>
             }
