@@ -2,12 +2,13 @@
 @using EPAM.FootballForum.Common.Entities;
 @using EPAM.FootballForum.Common.Dependencies;
 @{
-    Layout = "~/Layouts/_BasicLayout.cshtml";
-    Page.Title = "Форум. Основная страница.";
+    IEnumerable<Topic> topics = new List<Topic> { };
     Logger logger = LogManager.GetCurrentClassLogger();
-    IEnumerable<Topic> topics = DependencyResolver.Instance.TopicBLL.GetAllTopics();
     try
     {
+        Layout = "~/Layouts/_BasicLayout.cshtml";
+        Page.Title = "Форум. Основная страница.";
+        topics = DependencyResolver.Instance.TopicBLL.GetAllTopics();
         logger.Info($"User {User.Identity.Name} at index Page", User.Identity.Name);
         string text = Request["text"];
         if (IsPost)

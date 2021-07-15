@@ -22,5 +22,9 @@ namespace EPAM.FootballForum.BLL.Interfaces
         IEnumerable<User> GetAllUsers();
 
         bool DeleteUser(int id);
+
+        bool SearchEmail(string email);
+
+        bool SearchUserLogin(string login);
     }
 }

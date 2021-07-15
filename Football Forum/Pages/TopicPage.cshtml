@@ -2,18 +2,20 @@
 @using EPAM.FootballForum.Common.Dependencies;
 @using NLog;
 @{
-    Layout = "~/Layouts/_BasicLayout.cshtml";
     Logger logger = LogManager.GetCurrentClassLogger();
-    logger.Info($"User {User.Identity.Name} at Topic Page", User.Identity.Name);
     var id = Request.QueryString["id"];
     int topicID;
     Int32.TryParse(id, out topicID);
-    string text = Request["text"];
-    Topic topic = DependencyResolver.Instance.TopicBLL.GetTopicById(topicID);
-    Page.Title = topic.Text;
-    IEnumerable<Message> messages = DependencyResolver.Instance.MessageBLL.GetAllTopicMessages(topicID);
+    Topic topic = new Topic();
+    IEnumerable<Message> messages = new List<Message> { };
     try
     {
+        topic = DependencyResolver.Instance.TopicBLL.GetTopicById(topicID);
+        Layout = "~/Layouts/_BasicLayout.cshtml";
+        Page.Title = topic.Text;
+        logger.Info($"User {User.Identity.Name} at Topic Page", User.Identity.Name);
+        string text = Request["text"];
+        messages = DependencyResolver.Instance.MessageBLL.GetAllTopicMessages(topicID);
         User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);
         if (IsPost)
         {

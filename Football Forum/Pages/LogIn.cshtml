@@ -3,15 +3,15 @@
 @using NLog;
 @{
     FormsAuthentication.SignOut();
-    Layout = "~/Layouts/_LogInLayout.cshtml";
-    Page.Title = "Страница входа";
     Logger logger = LogManager.GetCurrentClassLogger();
-    logger.Info("User at LogIn Page");
     PasswordHasher hasher = new PasswordHasher();
     SearchUserAuthData userFoundState = new SearchUserAuthData();
     string login = Request["login"];
     try
     {
+        Layout = "~/Layouts/_LogInLayout.cshtml";
+        Page.Title = "Страница входа";
+        logger.Info("User at LogIn Page");
         if (IsPost)
         {
             userFoundState.LoginStatus(false);

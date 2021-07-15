@@ -1,3 +1,6 @@
 ﻿@{
-    Response.Redirect("~/Pages/PersonalPage", false);
+    var id = Request.QueryString["id"];
+    int userID;
+    Int32.TryParse(id, out userID);
+    Response.Redirect("~/Pages/PersonalPage?id=" + userID, false);
 }

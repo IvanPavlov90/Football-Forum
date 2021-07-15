@@ -223,5 +223,48 @@ namespace EPAM.FootballForum.DAL.Logic
             }
         }
 
+        public bool SearchEmail(string email)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                string[] result = new string[2];
+                var Users_SearchEmail = "SearchEmail";
+                SqlCommand command = new SqlCommand(Users_SearchEmail, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Email", email);
+                _connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (email == (string)reader[0])
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        public bool SearchUserLogin(string login)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                string[] result = new string[2];
+                var Users_SearchLogin = "SearchLogin";
+                SqlCommand command = new SqlCommand(Users_SearchLogin, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Login", login);
+                _connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (login == (string)reader[0])
+                        return true;
+                }
+                return false;
+            }
+        }
     }
 }

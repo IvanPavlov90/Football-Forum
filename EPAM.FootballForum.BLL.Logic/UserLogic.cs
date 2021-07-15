@@ -31,5 +31,9 @@ namespace EPAM.FootballForum.BLL.Logic
         public IEnumerable<User> GetAllUsers() => _userDal.GetAllUsers();
 
         public bool DeleteUser(int id) => _userDal.DeleteUser(id);
+
+        public bool SearchEmail(string email) => _userDal.SearchEmail(email);
+
+        public bool SearchUserLogin(string login) => _userDal.SearchUserLogin(login);
     }
 }

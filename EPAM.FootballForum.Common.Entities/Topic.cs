@@ -8,6 +8,12 @@ namespace EPAM.FootballForum.Common.Entities
 {
     public class Topic
     {
+
+        public Topic ()
+        {
+
+        }
+
         public Topic(int id, int creatorid, string text, DateTime updatedAt, string author)
         {
             ID = id;

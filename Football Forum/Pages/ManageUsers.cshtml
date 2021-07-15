@@ -2,13 +2,14 @@
 @using EPAM.FootballForum.Common.Dependencies;
 @using NLog;
 @{
-    Layout = "~/Layouts/_BasicLayout.cshtml";
-    Page.Title = "Упарвление пользователями";
     Logger logger = LogManager.GetCurrentClassLogger();
-    logger.Info($"User {User.Identity.Name} at manage users Page", User.Identity.Name);
-    IEnumerable<User> users = DependencyResolver.Instance.UserBLL.GetAllUsers();
+    IEnumerable<User> users = new List<User> { };
     try
     {
+        Layout = "~/Layouts/_BasicLayout.cshtml";
+        Page.Title = "Упарвление пользователями";
+        logger.Info($"User {User.Identity.Name} at manage users Page", User.Identity.Name);
+        users = DependencyResolver.Instance.UserBLL.GetAllUsers();
         if (IsAjax)
         {
             string userid = Request["userID"];
