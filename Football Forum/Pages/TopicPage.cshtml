@@ -13,7 +13,6 @@
         topic = DependencyResolver.Instance.TopicBLL.GetTopicById(topicID);
         Layout = "~/Layouts/_BasicLayout.cshtml";
         Page.Title = topic.Text;
-        logger.Info($"User {User.Identity.Name} at Topic Page", User.Identity.Name);
         string text = Request["text"];
         messages = DependencyResolver.Instance.MessageBLL.GetAllTopicMessages(topicID);
         User user = DependencyResolver.Instance.UserBLL.GetUser(User.Identity.Name);

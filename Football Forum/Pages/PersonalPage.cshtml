@@ -10,7 +10,6 @@
     try
     {
         Layout = "~/Layouts/_BasicLayout.cshtml";
-        logger.Info($"User {User.Identity.Name} at Personal Page", User.Identity.Name);
         if (id == null)
         {
             Page.Title = User.Identity.Name;

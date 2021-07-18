@@ -2,7 +2,6 @@
 @using NLog;
 @{
     Logger logger = LogManager.GetCurrentClassLogger();
-    logger.Info($"User {User.Identity.Name} at delete users Page", User.Identity.Name);
     try
     {
         if (IsAjax)
