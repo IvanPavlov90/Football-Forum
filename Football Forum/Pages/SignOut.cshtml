@@ -9,7 +9,7 @@
     }
     catch (Exception ex)
     {
-        logger.Error(ex, "This exception came from signout page.");
+        logger.Error(ex, $"{ex.Message} - came from signout page.");
         Response.Redirect("~/Pages/ErrorPage");
     }
 }

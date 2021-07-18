@@ -63,32 +63,6 @@ namespace EPAM.FootballForum.DAL.Logic
             }
         }
 
-        public string[] CheckUserAuthData(string login, string email)
-        {
-            using (SqlConnection _connection = new SqlConnection(_connectionString))
-            {
-                string[] result = new string[2];
-                var Users_CheckLoginAndEmail = "SearchAuthData";
-                SqlCommand command = new SqlCommand(Users_CheckLoginAndEmail, _connection)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure
-                };
-                command.Parameters.AddWithValue("@Login", login);
-                command.Parameters.AddWithValue("@Email", email);
-                _connection.Open();
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    if (login == (string)reader[0])
-                        result[0] = login;
-                    if (email == (string)reader[1])
-                        result[1] = email;
-                    return result;
-                }
-                return result;
-            }
-        }
-
         public bool UserAuthentication(string login, string hpassword)
         {
             using (SqlConnection _connection = new SqlConnection(_connectionString))

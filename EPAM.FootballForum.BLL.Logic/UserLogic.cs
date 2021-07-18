@@ -18,8 +18,6 @@ namespace EPAM.FootballForum.BLL.Logic
 
         public string[] GetRolesForUser(string login) => _userDal.GetRolesForUser(login);
 
-        public string[] CheckUserAuthData(string login, string email) => _userDal.CheckUserAuthData(login, email);
-
         public bool UserAuthentication(string login, string hpassword) => _userDal.UserAuthentication(login, hpassword);
 
         public User GetUser(string login) => _userDal.GetUser(login);

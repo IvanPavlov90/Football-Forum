@@ -25,7 +25,7 @@
         }
     } catch (Exception ex)
     {
-        logger.Error(ex, "This exception came from topic page.");
+        logger.Error(ex, $"{ex.Message} - came from topic page.");
         Response.Redirect("~/Pages/ErrorPage");
     }
 }

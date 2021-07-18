@@ -18,11 +18,11 @@
         {
             userFoundState.LoginStatus(false);
             userFoundState.EmailStatus(false);
-            if (login == DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email)[0])
+            if (DependencyResolver.Instance.UserBLL.SearchUserLogin(login))
             {
                 userFoundState.LoginStatus(true);
             }
-            else if (email == DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email)[1])
+            else if (DependencyResolver.Instance.UserBLL.SearchEmail(email))
             {
                 userFoundState.EmailStatus(true);
             }
@@ -38,7 +38,7 @@
         }
     } catch (Exception ex)
     {
-        logger.Error(ex, "This exception came from register page.");
+        logger.Error(ex, $"{ex.Message} - came from register page.");
         Response.Redirect("~/Pages/ErrorPage");
     }
 }

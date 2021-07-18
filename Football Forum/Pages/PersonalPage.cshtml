@@ -42,7 +42,6 @@
             string age = Request["age"];
             int userAge;
             Int32.TryParse(age, out userAge);
-            string[] authData = DependencyResolver.Instance.UserBLL.CheckUserAuthData(login, email);
             if (login != userInfo.Login && DependencyResolver.Instance.UserBLL.SearchUserLogin(login))
             {
                 userFoundState.LoginStatus(true);

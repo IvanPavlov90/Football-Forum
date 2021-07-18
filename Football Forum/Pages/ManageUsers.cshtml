@@ -19,7 +19,7 @@
         }
     } catch (Exception ex)
     {
-        logger.Error(ex, "This exception came from manage users page.");
+        logger.Error(ex, $"{ex.Message} - came from manage users page.");
         Response.Redirect("~/Pages/ErrorPage");
     }
 }

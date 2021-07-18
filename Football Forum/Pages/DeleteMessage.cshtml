@@ -14,7 +14,7 @@
         }
     } catch (Exception ex)
     {
-        logger.Error(ex, "This exception came from delete message page.");
+        logger.Error(ex, $"{ex.Message} - came from delete message page.");
         Response.Redirect("~/Pages/ErrorPage");
     }
 }
